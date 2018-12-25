@@ -8,6 +8,14 @@ mvvm
 kotlin
 
 GalateaApplication{
+    DisplayService{
+    // based on binder, offer display function, process:player
+        displayList getter&setter
+        play
+        pause
+        model setter
+    }
+
     SplashActivity{
         // TODO
     }
@@ -26,13 +34,15 @@ GalateaApplication{
 
         // describe=[tab], position=[under toolbar], widget=[tab with anim line]
 
-        DiscoverFragment // songs form remote, api request, based on api{
+        DiscoverFragment{
+        // songs form remote, api request, based on api
             // describe=[multiRecyclerView, with refresh], position=[fill], widget=[item view group]
                 // describe=[song list item], position=[], widget=[index, songTitle, artist, duration etc]
                 >> DisplayActivity
         }
 
-        ListFragment // there are three basic list, [favorite], [recently], [newest], and custom list{
+        ListFragment{
+        // there are three basic list, [favorite], [recently], [newest], and custom list
             // describe=[multiRecyclerView], position=[wrap], widget=[item view group]{
                 // describe=[album list item], position=[], widget=[icon, albumTitle]
                 >> AlbumActivity
@@ -41,7 +51,8 @@ GalateaApplication{
             >> AlbumActivity
         }
 
-        ProfileFragment // personal information show, player setting{
+        ProfileFragment{
+        // personal information show, player setting
             // describe=[information bar], position=[top], widget=[view group]
             >> SettingProfileActivity
 
@@ -101,6 +112,18 @@ GalateaApplication{
     }
 
     SettingProfileActivity{
+        // TODO
+    }
+
+    DonateActivity{
+        // TODO
+    }
+
+    RemoteView{
+        // TODO
+    }
+
+    NoticeView{
         // TODO
     }
 }
