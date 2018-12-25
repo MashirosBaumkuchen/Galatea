@@ -1,12 +1,30 @@
 ### Galatea project
 
-- api
+#### base
 
-http://qukufile2.qianqian.com/data2/pic/45463a960747fd1d0227ee7dd70e9e96/610370690/610370690.jpg
+* kotlin
+* mvp?mvvm
+* rxjava+retrofit+okhttp
+* material design
+* binder
+* remoteView
+* custom view
+* etc
 
-mvvm
-kotlin
+#### api
 
+* https://y.qq.com/m/api/api.html
+* http://qukufile2.qianqian.com/data2/pic/45463a960747fd1d0227ee7dd70e9e96/610370690/610370690.jpg
+* https://api.apiopen.top/searchMusic
+* https://api.apiopen.top/musicBroadcasting
+* https://api.apiopen.top/musicBroadcastingDetails?channelname=public_tuijian_spring
+* https://api.apiopen.top/musicDetails
+* https://api.apiopen.top/musicRankings
+* https://api.apiopen.top/musicRankingsDetails?type=1
+
+#### application structure
+
+```
 GalateaApplication{
     DisplayService{
     // based on binder, offer display function, process:player
@@ -127,3 +145,4 @@ GalateaApplication{
         // TODO
     }
 }
+```
