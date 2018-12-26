@@ -2,7 +2,6 @@ package com.jascal.galatea.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.jascal.galatea.base.I.IView
 
 /**
  * @author ihave4cat
@@ -11,7 +10,7 @@ import com.jascal.galatea.base.I.IView
  * @email jascal@163.com
  * */
 
-abstract class BaseActivity : AppCompatActivity(), IView {
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

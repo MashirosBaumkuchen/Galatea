@@ -31,10 +31,4 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
     }
-
-    override fun showLoading() {
-    }
-
-    override fun dismissLoading() {
-    }
 }

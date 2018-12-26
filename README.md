@@ -75,7 +75,7 @@ GalateaApplication{
         // describe=[playing page], position=[right&top], widget=[button with lottie animation]
         >> DisplayActivity
 
-        // describe=[tab], position=[under toolbar], widget=[tab with anim line]
+        // describe=[tab], position=[bottom], widget=[tab with anim line]
 
         DiscoverFragment{
         // songs form remote, api request, based on api
@@ -171,3 +171,28 @@ GalateaApplication{
     }
 }
 ```
+
+#### package state
+
+* notice: lazy initial
+
+package: com.jascal.galatea
+
+|-base
+    |-I
+|-cache
+|-mvvm
+    |-main
+    |-about
+    |-album
+    |-display
+    |-record
+    |-search
+    |-setting
+    |-splash
+|-net
+|-permission
+|-service
+|-utils
+|-widget
+
