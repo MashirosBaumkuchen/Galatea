@@ -14,6 +14,7 @@ open class BasePresenter<T : IView> : IPresenter<T> {
     var rootView: T? = null
         private set
 
+
     val isAttached: Boolean
         get() = rootView != null
 

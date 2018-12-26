@@ -1,7 +1,6 @@
 package com.jascal.galatea.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import com.jascal.galatea.base.I.IView
 
@@ -13,8 +12,9 @@ import com.jascal.galatea.base.I.IView
  * */
 
 abstract class BaseActivity : AppCompatActivity(), IView {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(layoutID())
         initData()
         initView()

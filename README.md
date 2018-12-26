@@ -11,6 +11,31 @@
 * custom view
 * etc
 
+#### liveData+viewModel
+
+why?
+because mvp could cause a memory leak problem, for example
+
+```
+class MyPresenter{
+    var mView ?= null
+        set(view:MyView) = view
+    ...
+}
+
+class MyView{
+    val mPresenter = MyPresenter()
+
+    override fun onCreate(){
+        ...
+        mPresenter.mView = this
+    }
+    ...
+}
+```
+
+and mvvm separate view from model proxy
+
 #### api
 
 * https://y.qq.com/m/api/api.html
