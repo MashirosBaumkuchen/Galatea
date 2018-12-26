@@ -3,7 +3,7 @@
 #### base
 
 * kotlin
-* mvp?mvvm
+* {mvp?mvvm} ok apply MVVM, liveData& ViewModel
 * rxjava+retrofit+okhttp
 * material design
 * binder
