@@ -8,10 +8,11 @@
     android:fitsSystemWindows="true"
     tools:context=".mvvm.main.MainActivity">
 
-    <android.support.v4.view.ViewPager
+    <com.jascal.galatea.widget.ScrollViewPager
         android:id="@+id/viewPage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:scrollAble="false" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"

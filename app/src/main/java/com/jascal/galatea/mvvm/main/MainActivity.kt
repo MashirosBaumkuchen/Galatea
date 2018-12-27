@@ -34,7 +34,19 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         viewPage.adapter = ViewPagerAdapter(fragments, supportFragmentManager)
     }
 
-    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
-        return false
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        item.isChecked = true
+        when (item.itemId) {
+            R.id.discover -> {
+                viewPage.setCurrentItem(0, true)
+            }
+            R.id.albums -> {
+                viewPage.setCurrentItem(1, true)
+            }
+            R.id.profile -> {
+                viewPage.setCurrentItem(2, true)
+            }
+        }
+        return true
     }
 }

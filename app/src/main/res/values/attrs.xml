@@ -3,4 +3,8 @@
 
     <attr name="colorTitleText" format="color|reference" />
 
+
+    <declare-styleable name="ScrollViewPager">
+        <attr name="scrollAble" format="boolean" />
+    </declare-styleable>
 </resources>
