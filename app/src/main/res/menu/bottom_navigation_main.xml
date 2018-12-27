@@ -3,16 +3,16 @@
 
     <item
         android:id="@+id/discover"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/melody"
         android:title="@string/discover" />
 
     <item
         android:id="@+id/albums"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/albums"
         android:title="@string/albums" />
 
     <item
         android:id="@+id/profile"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/settings"
         android:title="我的" />
 </menu>

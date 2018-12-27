@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
  * */
 
 abstract class BaseActivity : AppCompatActivity() {
+    val TAG: String = this::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

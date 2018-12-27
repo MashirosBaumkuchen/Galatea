@@ -14,6 +14,7 @@ import android.view.ViewGroup
  * */
 
 abstract class BaseFragment : Fragment() {
+    val TAG: String = this::class.java.simpleName
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(layoutID(), null)
