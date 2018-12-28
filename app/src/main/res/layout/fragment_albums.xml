@@ -21,26 +21,25 @@
             app:title=""
             app:titleTextColor="?attr/colorTitleText">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:orientation="horizontal">
+                android:layout_height="?attr/actionBarSize">
 
                 <ImageView
                     android:id="@+id/model"
                     android:layout_width="@dimen/toolbar_icon_size"
                     android:layout_height="@dimen/toolbar_icon_size"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="start"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_centerVertical="true"
                     android:src="@mipmap/ic_card" />
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="8"
                     android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="@string/albums"
                     android:textColor="?attr/colorTitleText"
                     android:textSize="18sp" />
@@ -49,11 +48,11 @@
                     android:id="@+id/player"
                     android:layout_width="@dimen/toolbar_icon_size"
                     android:layout_height="@dimen/toolbar_icon_size"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="end"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
                     android:src="@mipmap/ic_player" />
-            </LinearLayout>
+            </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
