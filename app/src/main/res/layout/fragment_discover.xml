@@ -30,8 +30,8 @@
                     android:layout_width="@dimen/toolbar_icon_size"
                     android:layout_height="@dimen/toolbar_icon_size"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="16dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
                     android:src="@mipmap/ic_record" />
 
                 <com.jascal.galatea.widget.ModelSwitcher
@@ -66,7 +66,15 @@
         <FrameLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="demo"/>
+
+        </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
 
