@@ -2,6 +2,7 @@ package com.jascal.galatea.mvvm.discover.m
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.util.Log
 import com.jascal.galatea.net.bean.QianResponse
 import com.jascal.galatea.net.service.SongsService
 import okhttp3.OkHttpClient
@@ -44,13 +45,16 @@ class SongsModel{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<QianResponse> {
                     override fun onError(e: Throwable?) {
+                        Log.d("requestSongs","error")
                     }
 
                     override fun onNext(t: QianResponse?) {
                         data.value = t
+                        Log.d("requestSongs","next")
                     }
 
                     override fun onCompleted() {
+                        Log.d("requestSongs","complete")
                     }
                 })
         return data
