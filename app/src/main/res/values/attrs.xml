@@ -7,4 +7,12 @@
     <declare-styleable name="ScrollViewPager">
         <attr name="scrollAble" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="ModelSwitcher">
+        <attr name="firstLabel" format="string" />
+        <attr name="secondLabel" format="string" />
+        <attr name="colorHint" format="color" />
+        <attr name="colorSelected" format="color" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
 </resources>
