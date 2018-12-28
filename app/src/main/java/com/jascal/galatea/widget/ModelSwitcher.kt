@@ -11,11 +11,12 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.jascal.galatea.R
+import com.jascal.galatea.ext.log
 
 
 /**
  * @author ihave4cat
- * @describe TODO
+ * @describe a custom switcher used to change from two labels, can be dragged, can be clicked.
  * @data on 2018/12/27 10:00 PM
  * @email jascal@163.com
  * */
@@ -112,15 +113,29 @@ class ModelSwitcher @JvmOverloads constructor(context: Context, attrs: Attribute
         canvas.drawRoundRect(0f, 0f, width.toFloat(), height.toFloat(), radius.toFloat(), radius.toFloat(), boxPaint)
 
         // draw selected box
+        var boxX: Float
         boxPaint.color = colorSelected
         if (currentPosition == 0) {
-            canvas.drawRoundRect(0f + between, 0f + between, 0f + between + radius + textWidth + radius, (height - between).toFloat(), radius.toFloat(), radius.toFloat(), boxPaint)
+            boxX = 0f + between
+            log("current==1, target is ${boxX + dX}, left is ${0 + between}, right is ${width - textWidth - radius - radius - between}")
+            boxX = when {
+                boxX + dX < 0 + between -> 0f + between
+                boxX + dX > width - textWidth - radius - radius - between -> (width - textWidth - radius - radius - between).toFloat()
+                else -> boxX + dX
+            }
+            canvas.drawRoundRect(boxX, 0f + between, boxX + radius + textWidth + radius, (height - between).toFloat(), radius.toFloat(), radius.toFloat(), boxPaint)
         } else {
-            canvas.drawRoundRect((width - textWidth - radius - radius - between).toFloat(), 0f + between, (width - between).toFloat(), (height - between).toFloat(), radius.toFloat(), radius.toFloat(), boxPaint)
+            boxX = (width - textWidth - radius - radius - between).toFloat()
+            log("current==2, target is ${boxX + dX}, left is ${0 + between}, right is ${width - textWidth - radius - radius - between}")
+            boxX = when {
+                boxX + dX < 0 + between -> 0f + between
+                boxX + dX > width - textWidth - radius - radius - between -> (width - textWidth - radius - radius - between).toFloat()
+                else -> boxX + dX
+            }
+            canvas.drawRoundRect(boxX, 0f + between, boxX + radius + textWidth + radius, (height - between).toFloat(), radius.toFloat(), radius.toFloat(), boxPaint)
         }
 
         val textY = radius + textBaseline
-
         if (currentPosition == 0) {
             // draw first text
             textPaint.color = colorHint
@@ -140,9 +155,36 @@ class ModelSwitcher @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
+    private var laseX: Int = -1
+    private var dX: Int = 0
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        currentPosition = if (event.x < width / 2) 0 else 1
-        invalidate()
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                log("down")
+                laseX = event.x.toInt()
+                dX = 0
+                parent.requestDisallowInterceptTouchEvent(true)
+            }
+            MotionEvent.ACTION_MOVE -> {
+                log("move")
+                dX += (event.x - laseX).toInt()
+                laseX = event.x.toInt()
+                invalidate()
+            }
+            MotionEvent.ACTION_UP -> {
+                log("up")
+                currentPosition = if (event.x < width / 2) 0 else 1
+                invalidate()
+                parent.requestDisallowInterceptTouchEvent(false)
+            }
+            MotionEvent.ACTION_CANCEL -> {
+                log("cancel")
+                currentPosition = if (event.x < width / 2) 0 else 1
+                invalidate()
+                parent.requestDisallowInterceptTouchEvent(false)
+            }
+            else -> log("====! ${event.action}")
+        }
         return true
     }
 }

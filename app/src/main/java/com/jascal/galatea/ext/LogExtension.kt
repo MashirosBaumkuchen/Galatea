@@ -4,6 +4,7 @@ import android.util.Log
 import com.jascal.galatea.GalateaApplication
 import com.jascal.galatea.base.BaseActivity
 import com.jascal.galatea.base.BaseFragment
+import com.jascal.galatea.widget.ModelSwitcher
 
 /**
  * @author ihave4cat
@@ -21,5 +22,11 @@ fun BaseActivity.log(msg: String) {
 fun BaseFragment.log(msg: String) {
     if (GalateaApplication.debug) {
         Log.d(TAG, msg)
+    }
+}
+
+fun ModelSwitcher.log(msg:String){
+    if(GalateaApplication.debug){
+        Log.d("ModelSwitcher", msg)
     }
 }

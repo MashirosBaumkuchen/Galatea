@@ -30,6 +30,7 @@
                     android:layout_width="@dimen/toolbar_icon_size"
                     android:layout_height="@dimen/toolbar_icon_size"
                     android:layout_alignParentStart="true"
+                    android:layout_marginStart="16dp"
                     android:layout_centerVertical="true"
                     android:src="@mipmap/ic_record" />
 
@@ -43,7 +44,7 @@
                     app:colorSelected="@color/colorPrimary"
                     app:firstLabel="@string/discover"
                     app:secondLabel="@string/local"
-                    app:textSize="18sp" />
+                    app:textSize="16sp" />
 
                 <ImageView
                     android:id="@+id/player"
@@ -51,6 +52,7 @@
                     android:layout_height="@dimen/toolbar_icon_size"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
                     android:src="@mipmap/ic_player" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
