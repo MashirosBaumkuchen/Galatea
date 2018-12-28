@@ -17,6 +17,11 @@ import com.jascal.galatea.ext.log
 /**
  * @author ihave4cat
  * @describe a custom switcher used to change from two labels, can be dragged, can be clicked.
+ *           there is a bug in #touchEvent(), in case of ACTION_CANCEL or ACTION_UP, if the last
+ *           event.x equals width/2, the switcher will not auto-focus on position 1 or position
+ *           2, it will stop in the exactly middle.
+ *           its fun, and i will not fix it.
+ *
  * @data on 2018/12/27 10:00 PM
  * @email jascal@163.com
  * */

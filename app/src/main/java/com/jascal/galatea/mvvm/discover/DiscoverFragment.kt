@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.fragment_discover.*
 
 /**
  * @author ihave4cat
- * @describe TODO
+ * @describe api https://api.apiopen.top/musicRankings
  * @data on 2018/12/27 5:28 PM
  * @email jascal@163.com
  * */
