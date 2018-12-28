@@ -36,6 +36,8 @@ class MyView{
 
 and mvvm separate view from model proxy
 
+* compare to MVP: reduce callback in {presenter->view}
+
 #### api
 
 * https://y.qq.com/m/api/api.html
