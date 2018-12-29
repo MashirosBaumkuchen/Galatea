@@ -3,8 +3,10 @@ package com.jascal.galatea.mvvm.discover.vm
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
+import com.jascal.galatea.mvvm.discover.d.DaggerSongsComponent
 import com.jascal.galatea.mvvm.discover.m.SongsModel
 import com.jascal.galatea.net.bean.QianResponse
+import javax.inject.Inject
 
 /**
  * @author ihave4cat
@@ -14,10 +16,16 @@ import com.jascal.galatea.net.bean.QianResponse
  * */
 
 class DiscoverViewModel : ViewModel() {
+    @Inject
+    lateinit var songsModel: SongsModel
+
+    init {
+        DaggerSongsComponent.create().inject(this)
+    }
 
     fun getSongsFromWeb(): LiveData<QianResponse> {
         // web request
-        Log.d("requestSongs","getSongsFromWeb")
-        return SongsModel().getSongs()
+        Log.d("requestSongs", "getSongsFromWeb")
+        return songsModel.getSongs()
     }
 }

@@ -29,6 +29,7 @@ class DiscoverFragment : BaseFragment() {
 
     override fun initData() {
         log("initData")
+
         viewModel.getSongsFromWeb().observe(this, object : Observer<QianResponse> {
             override fun onChanged(qianResponse: QianResponse?) {
                 Log.d("requestSongs","onChanged")
