@@ -19,7 +19,7 @@ import com.jascal.galatea.net.bean.Rank
  * @email jascal@163.com
  * */
 
-class RankAdapter : Adapter<RankAdapter.ViewHolder>() {
+class RankAdapter(var onRankItemClickListener: OnRankItemClickListener) : Adapter<RankAdapter.ViewHolder>() {
     private var rankData: List<Rank>? = null
 
     fun setData(ranks: List<Rank>) {
@@ -31,7 +31,9 @@ class RankAdapter : Adapter<RankAdapter.ViewHolder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_rank, viewGroup, false)
         Log.d("RankAdapter", "onCreateViewHolder")
-        return ViewHolder(view)
+        val viewHolder = ViewHolder(view)
+        viewHolder.itemView.setOnClickListener { v -> onRankItemClickListener.onItemClick(v) }
+        return viewHolder
     }
 
     override fun getItemCount(): Int {
@@ -49,6 +51,7 @@ class RankAdapter : Adapter<RankAdapter.ViewHolder>() {
             viewHolder.second.text = generateInfo(2, it[position].content[1].title, it[position].content[1].author)
             viewHolder.third.text = generateInfo(3, it[position].content[2].title, it[position].content[2].author)
             viewHolder.fourth.text = generateInfo(4, it[position].content[3].title, it[position].content[3].author)
+            viewHolder.itemView.tag = it[position].type
             Log.d("RankAdapter", "onBindViewHolder")
             return
         }
@@ -65,6 +68,9 @@ class RankAdapter : Adapter<RankAdapter.ViewHolder>() {
         var second = itemView.findViewById<TextView>(R.id.second)
         var third = itemView.findViewById<TextView>(R.id.third)
         var fourth = itemView.findViewById<TextView>(R.id.fourth)
+    }
 
+    interface OnRankItemClickListener {
+        fun onItemClick(view: View)
     }
 }

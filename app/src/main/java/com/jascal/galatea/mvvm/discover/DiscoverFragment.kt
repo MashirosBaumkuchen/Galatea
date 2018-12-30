@@ -4,6 +4,8 @@ import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseFragment
 import com.jascal.galatea.ext.log
@@ -21,11 +23,16 @@ import javax.inject.Inject
  * @email jascal@163.com
  * */
 
-class DiscoverFragment : BaseFragment() {
+class DiscoverFragment : BaseFragment(), RankAdapter.OnRankItemClickListener {
+    override fun onItemClick(view: View) {
+        val type = view.tag
+        // open rankDetail page by type
+        Toast.makeText(context, "type is $type", Toast.LENGTH_SHORT).show()
+    }
 
     @Inject
     lateinit var viewModel: DiscoverViewModel
-    private val rankAdapter: RankAdapter = RankAdapter()
+    private val rankAdapter: RankAdapter = RankAdapter(this)
 
     override fun layoutID(): Int {
         return R.layout.fragment_discover
