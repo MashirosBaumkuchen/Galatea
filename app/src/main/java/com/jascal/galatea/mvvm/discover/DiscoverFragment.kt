@@ -37,7 +37,7 @@ class DiscoverFragment : BaseFragment() {
 
         viewModel.getRanksFromApi().observe(this, Observer<RankResponse> { rankResponse ->
             Log.d("requestSongs", "onChanged")
-            rankAdapter.setData(rankResponse.result)
+            rankAdapter.setData(rankResponse!!.result)
         })
     }
 

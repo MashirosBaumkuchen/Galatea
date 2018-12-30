@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.jascal.galatea.R
 import com.jascal.galatea.net.bean.Rank
 
@@ -40,14 +42,29 @@ class RankAdapter : Adapter<RankAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        rankData?.let{
+        rankData?.let {
+            Glide.with(viewHolder.rankBg.context).load(it[position].pic_s192).into(viewHolder.rankBg)
+            viewHolder.rankTitle.text = it[position].name
+            viewHolder.first.text = generateInfo(1, it[position].content[0].title, it[position].content[0].author)
+            viewHolder.second.text = generateInfo(2, it[position].content[1].title, it[position].content[1].author)
+            viewHolder.third.text = generateInfo(3, it[position].content[2].title, it[position].content[2].author)
+            viewHolder.fourth.text = generateInfo(4, it[position].content[3].title, it[position].content[3].author)
             Log.d("RankAdapter", "onBindViewHolder")
-            Log.d("RankAdapter", "${it[position].name}")
-            viewHolder.title.text = it[position].name
+            return
         }
     }
 
+    private fun generateInfo(i: Int, title: String, author: String): String {
+        return "$i  $title $author"
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var title: TextView = itemView.findViewById(R.id.title)
+        var rankBg = itemView.findViewById<ImageView>(R.id.rankBg)
+        var rankTitle = itemView.findViewById<TextView>(R.id.rankTitle)
+        var first = itemView.findViewById<TextView>(R.id.first)
+        var second = itemView.findViewById<TextView>(R.id.second)
+        var third = itemView.findViewById<TextView>(R.id.third)
+        var fourth = itemView.findViewById<TextView>(R.id.fourth)
+
     }
 }
