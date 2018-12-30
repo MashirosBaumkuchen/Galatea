@@ -15,7 +15,7 @@ import javax.inject.Inject
  * @email jascal@163.com
  * */
 
-class DiscoverViewModel : ViewModel() {
+class DiscoverViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var songsModel: SongsModel
 

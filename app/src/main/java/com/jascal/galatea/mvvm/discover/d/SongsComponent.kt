@@ -10,7 +10,7 @@ import dagger.Component
  * @email jascal@163.com
  * */
 
-@Component(modules = [SongsModule::class])
+@Component
 interface SongsComponent {
     fun inject(discoverViewModel: DiscoverViewModel)
 }
