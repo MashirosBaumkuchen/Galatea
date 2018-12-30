@@ -24,12 +24,6 @@ import javax.inject.Inject
  * */
 
 class DiscoverFragment : BaseFragment(), RankAdapter.OnRankItemClickListener {
-    override fun onItemClick(view: View) {
-        val type = view.tag
-        // open rankDetail page by type
-        Toast.makeText(context, "type is $type", Toast.LENGTH_SHORT).show()
-    }
-
     @Inject
     lateinit var viewModel: DiscoverViewModel
     private val rankAdapter: RankAdapter = RankAdapter(this)
@@ -56,5 +50,9 @@ class DiscoverFragment : BaseFragment(), RankAdapter.OnRankItemClickListener {
         recycler.adapter = rankAdapter
     }
 
-
+    override fun onItemClick(view: View) {
+        val type = view.tag
+        // open rankDetail page by type
+        Toast.makeText(context, "type is $type", Toast.LENGTH_SHORT).show()
+    }
 }
