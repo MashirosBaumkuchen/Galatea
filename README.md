@@ -41,6 +41,8 @@ and mvvm separate view from model proxy
 
 #### api
 
+ready to change api
+
 // rank list
 https://api.apiopen.top/musicRankings
 
