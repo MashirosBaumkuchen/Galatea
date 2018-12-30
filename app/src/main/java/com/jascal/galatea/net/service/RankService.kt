@@ -1,6 +1,6 @@
 package com.jascal.galatea.net.service
 
-import com.jascal.galatea.net.bean.QianResponse
+import com.jascal.galatea.net.bean.RankResponse
 import retrofit2.http.GET
 import rx.Observable
 
@@ -12,8 +12,8 @@ import rx.Observable
  * @email jascal@163.com
  * */
 
-interface SongsService {
+interface RankService {
 
     @GET("musicRankings")
-    fun getSongs(): Observable<QianResponse>
+    fun getSongs(): Observable<RankResponse>
 }

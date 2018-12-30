@@ -3,9 +3,9 @@ package com.jascal.galatea.mvvm.discover.vm
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
-import com.jascal.galatea.mvvm.discover.d.DaggerSongsComponent
-import com.jascal.galatea.mvvm.discover.m.SongsModel
-import com.jascal.galatea.net.bean.QianResponse
+import com.jascal.galatea.mvvm.discover.d.DaggerRankComponent
+import com.jascal.galatea.mvvm.discover.m.RankModel
+import com.jascal.galatea.net.bean.RankResponse
 import javax.inject.Inject
 
 /**
@@ -17,15 +17,15 @@ import javax.inject.Inject
 
 class DiscoverViewModel @Inject constructor() : ViewModel() {
     @Inject
-    lateinit var songsModel: SongsModel
+    lateinit var rankModel: RankModel
 
     init {
-        DaggerSongsComponent.create().inject(this)
+        DaggerRankComponent.create().inject(this)
     }
 
-    fun getSongsFromWeb(): LiveData<QianResponse> {
+    fun getRanksFromApi(): LiveData<RankResponse> {
         // web request
         Log.d("requestSongs", "getSongsFromWeb")
-        return songsModel.getSongs()
+        return rankModel.getRanks()
     }
 }

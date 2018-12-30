@@ -8,8 +8,8 @@ package com.jascal.galatea.net.bean
  * */
 
 
-data class QianResponse(
+data class RankResponse(
         val code: Int,
         val message: String,
-        val result: List<TopList>
+        val result: List<Rank>
 )

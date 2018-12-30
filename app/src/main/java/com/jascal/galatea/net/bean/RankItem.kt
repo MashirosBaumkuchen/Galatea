@@ -8,7 +8,7 @@ package com.jascal.galatea.net.bean
  * */
 
 
-data class Song(
+data class RankItem(
     val all_rate: String,
     val song_id: String,
     val rank_change: String,

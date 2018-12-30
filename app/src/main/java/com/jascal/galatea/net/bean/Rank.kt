@@ -8,7 +8,7 @@ package com.jascal.galatea.net.bean
  * */
 
 
-data class TopList(
+data class Rank(
         val pic_s210: String,
         val bg_pic: String,
         val web_url: String,
@@ -19,6 +19,6 @@ data class TopList(
         val comment: String,
         val type: Int,
         val pic_s192: String,
-        val content: List<Song>,
+        val content: List<RankItem>,
         val pic_s260: String
 )

@@ -3,8 +3,8 @@ package com.jascal.galatea.mvvm.discover.m
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
-import com.jascal.galatea.net.bean.QianResponse
-import com.jascal.galatea.net.service.SongsService
+import com.jascal.galatea.net.bean.RankResponse
+import com.jascal.galatea.net.service.RankService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,8 +22,8 @@ import javax.inject.Inject
  * @email jascal@163.com
  * */
 
-class SongsModel @Inject constructor() {
-    private var songsService: SongsService
+class RankModel @Inject constructor() {
+    private var rankService: RankService
 
     init {
         val logging = HttpLoggingInterceptor()
@@ -35,20 +35,20 @@ class SongsModel @Inject constructor() {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(client)
                 .build()
-        songsService = retrofit.create(SongsService::class.java)
+        rankService = retrofit.create(RankService::class.java)
     }
 
-    fun getSongs(): LiveData<QianResponse> {
-        val data: MutableLiveData<QianResponse> = MutableLiveData()
-        songsService.getSongs()
+    fun getRanks(): LiveData<RankResponse> {
+        val data: MutableLiveData<RankResponse> = MutableLiveData()
+        rankService.getSongs()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<QianResponse> {
+                .subscribe(object : Observer<RankResponse> {
                     override fun onError(e: Throwable?) {
                         Log.d("requestSongs", "error")
                     }
 
-                    override fun onNext(t: QianResponse?) {
+                    override fun onNext(t: RankResponse?) {
                         data.value = t
                         Log.d("requestSongs", "next")
                     }

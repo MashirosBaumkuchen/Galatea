@@ -8,7 +8,7 @@ import com.jascal.galatea.base.BaseFragment
 import com.jascal.galatea.ext.log
 import com.jascal.galatea.mvvm.discover.d.DaggerDiscoverComponent
 import com.jascal.galatea.mvvm.discover.vm.DiscoverViewModel
-import com.jascal.galatea.net.bean.QianResponse
+import com.jascal.galatea.net.bean.RankResponse
 import kotlinx.android.synthetic.main.fragment_discover.*
 import javax.inject.Inject
 
@@ -32,9 +32,9 @@ class DiscoverFragment : BaseFragment() {
         log("initData")
         DaggerDiscoverComponent.create().inject(this)
 
-        viewModel.getSongsFromWeb().observe(this, Observer<QianResponse> { qianResponse ->
+        viewModel.getRanksFromApi().observe(this, Observer<RankResponse> { rankResponse ->
             Log.d("requestSongs", "onChanged")
-            song.text = qianResponse?.result!![0].name
+            song.text = rankResponse?.result!![0].name
         })
     }
 

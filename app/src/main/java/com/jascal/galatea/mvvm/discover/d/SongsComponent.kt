@@ -11,6 +11,6 @@ import dagger.Component
  * */
 
 @Component
-interface SongsComponent {
+interface RankComponent {
     fun inject(discoverViewModel: DiscoverViewModel)
 }
