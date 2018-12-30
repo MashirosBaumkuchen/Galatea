@@ -40,14 +40,14 @@ and mvvm separate view from model proxy
 
 #### api
 
-* https://y.qq.com/m/api/api.html
-* http://qukufile2.qianqian.com/data2/pic/45463a960747fd1d0227ee7dd70e9e96/610370690/610370690.jpg
-* https://api.apiopen.top/searchMusic
-* https://api.apiopen.top/musicBroadcasting
-* https://api.apiopen.top/musicBroadcastingDetails?channelname=public_tuijian_spring
-* https://api.apiopen.top/musicDetails
-* https://api.apiopen.top/musicRankings
-* https://api.apiopen.top/musicRankingsDetails?type=1
+// rank list
+https://api.apiopen.top/musicRankings
+
+// rank detail
+https://api.apiopen.top/musicRankingsDetails?type=1
+
+// song
+https://api.apiopen.top/musicDetails?id=610722309
 
 #### application structure
 

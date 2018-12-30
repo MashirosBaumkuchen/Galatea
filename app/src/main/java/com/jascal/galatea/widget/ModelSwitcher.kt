@@ -36,6 +36,8 @@ class ModelSwitcher @JvmOverloads constructor(context: Context, attrs: Attribute
     private var secondLabel: String = ""
     private var colorHint: Int = Color.BLACK
     private var colorSelected: Int = Color.BLUE
+    private var textColorHint: Int = Color.BLACK
+    private var textColorSelected: Int = Color.BLUE
     private var textSize: Float = 30f
 
     private var textPaint: Paint
@@ -56,6 +58,8 @@ class ModelSwitcher @JvmOverloads constructor(context: Context, attrs: Attribute
         secondLabel = typeArray.getString(R.styleable.ModelSwitcher_secondLabel)
         colorHint = typeArray.getColor(R.styleable.ModelSwitcher_colorHint, colorHint)
         colorSelected = typeArray.getColor(R.styleable.ModelSwitcher_colorSelected, colorSelected)
+        textColorHint = typeArray.getColor(R.styleable.ModelSwitcher_textColorHint, textColorHint)
+        textColorSelected = typeArray.getColor(R.styleable.ModelSwitcher_textColorSelected, textColorSelected)
         textSize = typeArray.getDimension(R.styleable.ModelSwitcher_textSize, textSize)
         typeArray.recycle()
 
@@ -141,19 +145,19 @@ class ModelSwitcher @JvmOverloads constructor(context: Context, attrs: Attribute
         val textY = radius + textBaseline
         if (currentPosition == 0) {
             // draw first text
-            textPaint.color = colorHint
+            textPaint.color = textColorSelected
             canvas.drawText(firstLabel, (radius + between).toFloat(), textY, textPaint)
 
             // draw second text
-            textPaint.color = colorSelected
+            textPaint.color = textColorHint
             canvas.drawText(secondLabel, (width - textWidth - radius - between).toFloat(), textY, textPaint)
         } else {
             // draw first text
-            textPaint.color = colorSelected
+            textPaint.color = textColorHint
             canvas.drawText(firstLabel, (radius + between).toFloat(), textY, textPaint)
 
             // draw second text
-            textPaint.color = colorHint
+            textPaint.color = textColorSelected
             canvas.drawText(secondLabel, (width - textWidth - radius - between).toFloat(), textY, textPaint)
         }
     }

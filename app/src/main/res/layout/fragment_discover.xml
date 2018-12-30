@@ -40,10 +40,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    app:colorHint="?attr/colorTitleText"
+                    app:colorHint="@color/colorPureWrite"
                     app:colorSelected="@color/colorPrimary"
                     app:firstLabel="@string/discover"
                     app:secondLabel="@string/local"
+                    app:textColorSelected="@color/colorPureWrite"
+                    app:textColorHint="@color/colorSecondaryText"
                     app:textSize="16sp" />
 
                 <ImageView
@@ -72,7 +74,7 @@
                 android:id="@+id/song"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="demo"/>
+                android:text="demo" />
 
         </FrameLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -32,11 +32,9 @@ class DiscoverFragment : BaseFragment() {
         log("initData")
         DaggerDiscoverComponent.create().inject(this)
 
-        viewModel.getSongsFromWeb().observe(this, object : Observer<QianResponse> {
-            override fun onChanged(qianResponse: QianResponse?) {
-                Log.d("requestSongs", "onChanged")
-                song.text = qianResponse?.result!![0].name
-            }
+        viewModel.getSongsFromWeb().observe(this, Observer<QianResponse> { qianResponse ->
+            Log.d("requestSongs", "onChanged")
+            song.text = qianResponse?.result!![0].name
         })
     }
 

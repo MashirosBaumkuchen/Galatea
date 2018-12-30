@@ -13,6 +13,8 @@
         <attr name="secondLabel" format="string" />
         <attr name="colorHint" format="color" />
         <attr name="colorSelected" format="color" />
+        <attr name="textColorHint" format="color" />
+        <attr name="textColorSelected" format="color" />
         <attr name="textSize" format="dimension" />
     </declare-styleable>
 </resources>
