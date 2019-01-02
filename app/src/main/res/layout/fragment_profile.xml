@@ -66,10 +66,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/avatar"
-                android:layout_width="58dp"
-                android:layout_height="58dp" />
+            <include layout="@layout/layout_user_profile" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

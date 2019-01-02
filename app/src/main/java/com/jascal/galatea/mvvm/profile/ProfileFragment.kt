@@ -8,6 +8,7 @@ import com.jascal.galatea.base.BaseFragment
 import com.jascal.galatea.mvvm.profile.d.DaggerProfileComponent
 import com.jascal.galatea.mvvm.profile.vm.ProfileViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.layout_user_profile.*
 import javax.inject.Inject
 
 /**
@@ -32,6 +33,8 @@ class ProfileFragment : BaseFragment() {
                 .observe(this, Observer {
                     val profile = it?.profile
                     Glide.with(context!!).load(profile!!.avatarUrl).into(avatar)
+                    Glide.with(context!!).load(profile.backgroundUrl).into(bg)
+                    nickname.text = profile.nickname
                 })
     }
 

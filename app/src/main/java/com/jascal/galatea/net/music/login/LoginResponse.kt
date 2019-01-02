@@ -8,7 +8,7 @@ package com.jascal.galatea.net.music.login
  * */
 
 
-data class Response(
+data class LoginResponse(
         val loginType: Int,
         val code: Int,
         val account: Account,

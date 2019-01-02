@@ -3,7 +3,7 @@ package com.jascal.galatea.mvvm.profile.vm
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import com.jascal.galatea.mvvm.profile.d.DaggerProfileVMComponent
-import com.jascal.galatea.net.music.login.Response
+import com.jascal.galatea.net.music.login.LoginResponse
 import com.jascal.galatea.net.service.impl.UserModel
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
         DaggerProfileVMComponent.create().inject(this)
     }
 
-    fun login(): LiveData<Response> {
+    fun login(): LiveData<LoginResponse> {
         return userModel.login()
     }
 

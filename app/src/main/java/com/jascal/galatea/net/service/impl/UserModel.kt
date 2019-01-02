@@ -4,7 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.jascal.galatea.net.music.Config
-import com.jascal.galatea.net.music.login.Response
+import com.jascal.galatea.net.music.login.LoginResponse
+import com.jascal.galatea.net.music.playlist.UserPlaylistResponse
 import com.jascal.galatea.net.service.UserService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,27 +40,54 @@ class UserModel @Inject constructor() {
         userService = retrofit.create(UserService::class.java)
     }
 
-    fun login(): LiveData<Response> {
-        val data: MutableLiveData<Response> = MutableLiveData()
+    fun login(): LiveData<LoginResponse> {
+        val data: MutableLiveData<LoginResponse> = MutableLiveData()
         userService.login("18810659693", "blackcherry")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<Response> {
+                .subscribe(object : Observer<LoginResponse> {
                     override fun onError(e: Throwable?) {
                         Log.d("loginResponse", "error")
                         Log.d("loginResponse", "${e.toString()}")
                     }
 
-                    override fun onNext(t: Response?) {
+                    override fun onNext(t: LoginResponse?) {
                         data.value = t
-                        Log.d("loginResponse", "error")
+                        Log.d("loginResponse", "onNext")
                     }
 
                     override fun onCompleted() {
-                        Log.d("loginResponse", "error")
+                        Log.d("loginResponse", "onCompleted")
                     }
 
                 })
         return data
     }
+
+    fun getUserPlaylist(userId: Int = 293334466): LiveData<UserPlaylistResponse> {
+        val data: MutableLiveData<UserPlaylistResponse> = MutableLiveData()
+        userService.getUserPlaylist(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<UserPlaylistResponse> {
+                    override fun onError(e: Throwable?) {
+                        Log.d("getUserPlaylist", "error")
+                        Log.d("getUserPlaylist", "${e.toString()}")
+                    }
+
+                    override fun onNext(t: UserPlaylistResponse?) {
+                        data.value = t
+                        Log.d("getUserPlaylist", "onCompleted")
+                    }
+
+                    override fun onCompleted() {
+                        Log.d("getUserPlaylist", "onCompleted")
+                    }
+
+                })
+        return data
+    }
+
+
 }
+
