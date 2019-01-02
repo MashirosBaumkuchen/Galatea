@@ -1,4 +1,4 @@
-package com.jascal.galatea.net.service
+package com.jascal.galatea.net.bean
 
 import com.jascal.galatea.net.bean.RankResponse
 import retrofit2.http.GET

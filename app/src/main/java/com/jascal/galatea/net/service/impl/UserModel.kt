@@ -1,10 +1,11 @@
-package com.jascal.galatea.mvvm.discover.m
+package com.jascal.galatea.net.service.impl
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
-import com.jascal.galatea.net.bean.RankResponse
-import com.jascal.galatea.net.bean.RankService
+import com.jascal.galatea.net.music.Config
+import com.jascal.galatea.net.music.login.Response
+import com.jascal.galatea.net.service.UserService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,44 +19,46 @@ import javax.inject.Inject
 /**
  * @author ihave4cat
  * @describe TODO
- * @data on 2018/12/28 9:33 PM
+ * @data on 2019/1/2 7:51 PM
  * @email jascal@163.com
  * */
 
-class RankModel @Inject constructor() {
-    private var rankService: RankService
+class UserModel @Inject constructor() {
+    private val userService: UserService
 
     init {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
         val client = OkHttpClient.Builder().addInterceptor(logging).build()
         val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.apiopen.top/")
+                .baseUrl(Config.BASE)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(client)
                 .build()
-        rankService = retrofit.create(RankService::class.java)
+        userService = retrofit.create(UserService::class.java)
     }
 
-    fun getRanks(): LiveData<RankResponse> {
-        val data: MutableLiveData<RankResponse> = MutableLiveData()
-        rankService.getSongs()
+    fun login(): LiveData<Response> {
+        val data: MutableLiveData<Response> = MutableLiveData()
+        userService.login("18810659693", "blackcherry")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<RankResponse> {
+                .subscribe(object : Observer<Response> {
                     override fun onError(e: Throwable?) {
-                        Log.d("requestSongs", "error")
+                        Log.d("loginResponse", "error")
+                        Log.d("loginResponse", "${e.toString()}")
                     }
 
-                    override fun onNext(t: RankResponse?) {
+                    override fun onNext(t: Response?) {
                         data.value = t
-                        Log.d("requestSongs", "next")
+                        Log.d("loginResponse", "error")
                     }
 
                     override fun onCompleted() {
-                        Log.d("requestSongs", "complete")
+                        Log.d("loginResponse", "error")
                     }
+
                 })
         return data
     }
