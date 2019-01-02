@@ -2,12 +2,15 @@ package com.jascal.galatea.mvvm.list
 
 import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseFragment
+import com.jascal.galatea.mvvm.list.adapter.PlaylistAdapter
 import com.jascal.galatea.mvvm.list.d.DaggerAlbumsComponent
 import com.jascal.galatea.mvvm.list.vm.AlbumsViewModel
 import com.jascal.galatea.net.music.playlist.UserPlaylistResponse
 import kotlinx.android.synthetic.main.fragment_albums.*
+import kotlinx.android.synthetic.main.layout_playlist.*
 import javax.inject.Inject
 
 /**
@@ -18,6 +21,7 @@ import javax.inject.Inject
  * */
 
 class AlbumsFragment : BaseFragment() {
+    private var playlistAdapter: PlaylistAdapter = PlaylistAdapter()
 
     @Inject
     lateinit var albumsViewModel: AlbumsViewModel
@@ -30,12 +34,15 @@ class AlbumsFragment : BaseFragment() {
         DaggerAlbumsComponent.create().inject(this)
         albumsViewModel.getUserPlaylist()
                 .observe(this, Observer<UserPlaylistResponse> {
-                    info.text = it.toString()
+                    playlistAdapter.setData(it!!.playlist)
                 })
     }
 
     override fun initView() {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        val layoutManager = LinearLayoutManager(this.context)
+        playlist.layoutManager = layoutManager
+        playlist.adapter = playlistAdapter
     }
 
 }
