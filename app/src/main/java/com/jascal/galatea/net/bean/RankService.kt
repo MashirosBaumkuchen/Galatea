@@ -1,8 +1,7 @@
 package com.jascal.galatea.net.bean
 
-import com.jascal.galatea.net.bean.RankResponse
+import io.reactivex.Observable
 import retrofit2.http.GET
-import rx.Observable
 
 
 /**

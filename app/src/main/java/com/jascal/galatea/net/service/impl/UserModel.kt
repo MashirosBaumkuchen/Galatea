@@ -7,14 +7,15 @@ import com.jascal.galatea.net.music.Config
 import com.jascal.galatea.net.music.login.LoginResponse
 import com.jascal.galatea.net.music.playlist.UserPlaylistResponse
 import com.jascal.galatea.net.service.UserService
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import rx.Observer
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -34,7 +35,7 @@ class UserModel @Inject constructor() {
         val retrofit = Retrofit.Builder()
                 .baseUrl(Config.BASE)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build()
         userService = retrofit.create(UserService::class.java)
@@ -46,20 +47,22 @@ class UserModel @Inject constructor() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<LoginResponse> {
-                    override fun onError(e: Throwable?) {
+                    override fun onError(e: Throwable) {
                         Log.d("loginResponse", "error")
                         Log.d("loginResponse", "${e.toString()}")
                     }
 
-                    override fun onNext(t: LoginResponse?) {
+                    override fun onNext(t: LoginResponse) {
                         data.value = t
                         Log.d("loginResponse", "onNext")
                     }
 
-                    override fun onCompleted() {
+                    override fun onComplete() {
                         Log.d("loginResponse", "onCompleted")
                     }
 
+                    override fun onSubscribe(d: Disposable) {
+                    }
                 })
         return data
     }
@@ -70,18 +73,22 @@ class UserModel @Inject constructor() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<UserPlaylistResponse> {
-                    override fun onError(e: Throwable?) {
+                    override fun onError(e: Throwable) {
                         Log.d("getUserPlaylist", "error")
                         Log.d("getUserPlaylist", "${e.toString()}")
                     }
 
-                    override fun onNext(t: UserPlaylistResponse?) {
+                    override fun onNext(t: UserPlaylistResponse) {
                         data.value = t
                         Log.d("getUserPlaylist", "onCompleted")
                     }
 
-                    override fun onCompleted() {
+                    override fun onComplete() {
                         Log.d("getUserPlaylist", "onCompleted")
+                    }
+
+
+                    override fun onSubscribe(d: Disposable) {
                     }
 
                 })

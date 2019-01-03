@@ -2,9 +2,9 @@ package com.jascal.galatea.net.service
 
 import com.jascal.galatea.net.music.login.LoginResponse
 import com.jascal.galatea.net.music.playlist.UserPlaylistResponse
+import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
-import rx.Observable
 
 /**
  * @author ihave4cat

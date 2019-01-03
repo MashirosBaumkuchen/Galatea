@@ -9,6 +9,6 @@ package com.jascal.galatea.net.music
 
 class Config {
     companion object {
-        const val BASE = "http://10.8.10.153:3000/"
+        const val BASE = "http://10.8.10.53:3000/"
     }
 }

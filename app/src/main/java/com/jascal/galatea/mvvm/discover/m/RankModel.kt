@@ -5,14 +5,15 @@ import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.jascal.galatea.net.bean.RankResponse
 import com.jascal.galatea.net.bean.RankService
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import rx.Observer
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -32,7 +33,7 @@ class RankModel @Inject constructor() {
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.apiopen.top/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build()
         rankService = retrofit.create(RankService::class.java)
@@ -44,17 +45,20 @@ class RankModel @Inject constructor() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<RankResponse> {
-                    override fun onError(e: Throwable?) {
+                    override fun onError(e: Throwable) {
                         Log.d("requestSongs", "error")
                     }
 
-                    override fun onNext(t: RankResponse?) {
+                    override fun onNext(t: RankResponse) {
                         data.value = t
                         Log.d("requestSongs", "next")
                     }
 
-                    override fun onCompleted() {
+                    override fun onComplete() {
                         Log.d("requestSongs", "complete")
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
                     }
                 })
         return data
