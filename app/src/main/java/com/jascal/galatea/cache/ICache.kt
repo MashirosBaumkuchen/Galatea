@@ -11,8 +11,7 @@ import io.reactivex.Observable
  * */
 
 interface ICache {
-    fun <T : Bean> get(key: String, value: Class<T>): Observable<T>
-
+    fun <T : Bean> get(key: String, clazz: Class<T>): Observable<T>
 
     fun <T : Bean> put(key: String, value: T)
 }

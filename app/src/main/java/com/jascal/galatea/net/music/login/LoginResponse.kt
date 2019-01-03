@@ -1,5 +1,7 @@
 package com.jascal.galatea.net.music.login
 
+import com.jascal.galatea.net.music.Bean
+
 /**
  * @author ihave4cat
  * @describe TODO
@@ -14,4 +16,4 @@ data class LoginResponse(
         val account: Account,
         val profile: Profile,
         val bindings: List<Binding>
-)
+) : Bean()

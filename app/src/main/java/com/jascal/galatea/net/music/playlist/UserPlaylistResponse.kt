@@ -1,5 +1,7 @@
 package com.jascal.galatea.net.music.playlist
 
+import com.jascal.galatea.net.music.Bean
+
 /**
  * @author ihave4cat
  * @describe TODO
@@ -12,4 +14,4 @@ data class UserPlaylistResponse(
         val more: Boolean,
         val playlist: List<Playlist>,
         val code: Int
-)
+) : Bean()

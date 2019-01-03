@@ -21,6 +21,6 @@ abstract class Bean {
 
 
     fun isVaild(): Boolean {
-        return System.currentTimeMillis() - createTime > TIME_LIMIT
+        return System.currentTimeMillis() - createTime < TIME_LIMIT
     }
 }
