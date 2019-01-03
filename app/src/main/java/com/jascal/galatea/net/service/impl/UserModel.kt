@@ -71,7 +71,9 @@ class UserModel @Inject constructor() {
 //    }
 
     fun login(): LiveData<LoginResponse> {
+        //========= how to generate unique key
         val url = String.format("18810659693", "login")
+
         val data: MutableLiveData<LoginResponse> = MutableLiveData()
         val networkCache = object : NetworkCache<LoginResponse>() {
             override fun get(key: String, clazz: Class<LoginResponse>): Observable<LoginResponse> {
