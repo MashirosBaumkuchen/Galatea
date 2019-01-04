@@ -201,3 +201,8 @@ package: com.jascal.galatea
 |-utils
 |-widget
 
+
+#### todo list
+
+* generator key method, md5
+* viewPagerAdapter destroy item method, apply lazy load fragment
