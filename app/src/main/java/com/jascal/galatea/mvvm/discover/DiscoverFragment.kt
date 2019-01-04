@@ -3,7 +3,6 @@ package com.jascal.galatea.mvvm.discover
 import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.jascal.galatea.R
@@ -12,7 +11,7 @@ import com.jascal.galatea.ext.log
 import com.jascal.galatea.mvvm.discover.adapter.RankAdapter
 import com.jascal.galatea.mvvm.discover.d.DaggerDiscoverComponent
 import com.jascal.galatea.mvvm.discover.vm.DiscoverViewModel
-import com.jascal.galatea.net.bean.RankResponse
+import com.jascal.galatea.net.music.recommend.RecommendResponse
 import kotlinx.android.synthetic.main.fragment_discover.*
 import javax.inject.Inject
 
@@ -35,9 +34,9 @@ class DiscoverFragment : BaseFragment(), RankAdapter.OnRankItemClickListener {
     override fun initData() {
         log("initData")
         DaggerDiscoverComponent.create().inject(this)
-        viewModel.getRanksFromApi().observe(this, Observer<RankResponse> { rankResponse ->
-            Log.d("requestSongs", "onChanged")
-            rankAdapter.setData(rankResponse!!.result)
+        viewModel.getRecommend().observe(this, Observer<RecommendResponse> {
+            log("on get recommend")
+            rankAdapter.setData(it!!.recommend)
         })
 
     }
@@ -52,11 +51,18 @@ class DiscoverFragment : BaseFragment(), RankAdapter.OnRankItemClickListener {
         val layoutManager = LinearLayoutManager(this.context)
         recycler.layoutManager = layoutManager
         recycler.adapter = rankAdapter
+
+        reflash.setOnClickListener {
+            viewModel.getRecommend().observe(this, Observer<RecommendResponse> {
+                log("on get recommend")
+                rankAdapter.setData(it!!.recommend)
+            })
+        }
     }
 
     override fun onItemClick(view: View) {
-        val type = view.tag
+        val id = view.tag
         // open rankDetail page by type
-        Toast.makeText(context, "type is $type", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "id is $id", Toast.LENGTH_SHORT).show()
     }
 }

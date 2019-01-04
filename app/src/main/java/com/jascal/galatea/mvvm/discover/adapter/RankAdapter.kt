@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.jascal.galatea.R
-import com.jascal.galatea.net.bean.Rank
+import com.jascal.galatea.net.music.recommend.Recommend
 
 /**
  * @author ihave4cat
@@ -20,9 +20,9 @@ import com.jascal.galatea.net.bean.Rank
  * */
 
 class RankAdapter(var onRankItemClickListener: OnRankItemClickListener) : Adapter<RankAdapter.ViewHolder>() {
-    private var rankData: List<Rank>? = null
+    private var rankData: List<Recommend>? = null
 
-    fun setData(ranks: List<Rank>) {
+    fun setData(ranks: List<Recommend>) {
         Log.d("RankAdapter", "setdata")
         this.rankData = ranks
         notifyDataSetChanged()
@@ -45,20 +45,16 @@ class RankAdapter(var onRankItemClickListener: OnRankItemClickListener) : Adapte
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         rankData?.let {
-            Glide.with(viewHolder.rankBg.context).load(it[position].pic_s192).into(viewHolder.rankBg)
+            Glide.with(viewHolder.rankBg.context).load(it[position].picUrl).into(viewHolder.rankBg)
             viewHolder.rankTitle.text = it[position].name
-            viewHolder.first.text = generateInfo(1, it[position].content[0].title, it[position].content[0].author)
-            viewHolder.second.text = generateInfo(2, it[position].content[1].title, it[position].content[1].author)
-            viewHolder.third.text = generateInfo(3, it[position].content[2].title, it[position].content[2].author)
-            viewHolder.fourth.text = generateInfo(4, it[position].content[3].title, it[position].content[3].author)
-            viewHolder.itemView.tag = it[position].type
+            viewHolder.itemView.tag = it[position].id
+            viewHolder.first.text = it[position].copywriter
+            viewHolder.second.text = it[position].playcount.toString()
+            viewHolder.third.text = it[position].creator.nickname
+            viewHolder.fourth.text = it[position].creator.signature
             Log.d("RankAdapter", "onBindViewHolder")
             return
         }
-    }
-
-    private fun generateInfo(i: Int, title: String, author: String): String {
-        return "$i  $title $author"
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

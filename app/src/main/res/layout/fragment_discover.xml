@@ -42,8 +42,8 @@
                     app:colorSelected="@color/colorPrimary"
                     app:firstLabel="@string/discover"
                     app:secondLabel="@string/local"
-                    app:textColorSelected="@color/colorPureWrite"
                     app:textColorHint="@color/colorSecondaryText"
+                    app:textColorSelected="@color/colorPureWrite"
                     app:textSize="16sp" />
 
                 <ImageView
@@ -66,7 +66,14 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_gravity="bottom|end"
+        android:id="@+id/reflash"
+        android:layout_margin="16dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
 </android.support.design.widget.CoordinatorLayout>
 

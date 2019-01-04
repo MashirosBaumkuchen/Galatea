@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
 import com.jascal.galatea.mvvm.discover.d.DaggerRankComponent
-import com.jascal.galatea.mvvm.discover.m.RankModel
-import com.jascal.galatea.net.bean.RankResponse
+import com.jascal.galatea.net.music.recommend.RecommendResponse
+import com.jascal.galatea.net.service.impl.RecommendModel
 import javax.inject.Inject
 
 /**
@@ -17,15 +17,15 @@ import javax.inject.Inject
 
 class DiscoverViewModel @Inject constructor() : ViewModel() {
     @Inject
-    lateinit var rankModel: RankModel
+    lateinit var recommendModel: RecommendModel
 
     init {
         DaggerRankComponent.create().inject(this)
     }
 
-    fun getRanksFromApi(): LiveData<RankResponse> {
+    fun getRecommend(): LiveData<RecommendResponse> {
         // web request
         Log.d("requestSongs", "getSongsFromWeb")
-        return rankModel.getRanks()
+        return recommendModel.getRecommend()
     }
 }
