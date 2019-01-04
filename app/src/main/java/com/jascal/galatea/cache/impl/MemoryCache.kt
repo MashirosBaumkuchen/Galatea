@@ -1,13 +1,11 @@
 package com.jascal.galatea.cache.impl
 
 import android.text.TextUtils
-import android.util.Log
 import android.util.LruCache
 import com.google.gson.Gson
 import com.jascal.galatea.cache.ICache
 import com.jascal.galatea.net.music.Bean
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 import java.io.UnsupportedEncodingException
 
@@ -36,30 +34,23 @@ class MemoryCache : ICache {
     }
 
     override fun <T : Bean> get(key: String, clazz: Class<T>): Observable<T> {
-        return Observable.create(object : ObservableOnSubscribe<T> {
-            override fun subscribe(emitter: ObservableEmitter<T>) {
-                Log.d("cacheProxy", "memory is subscribe")
-                val result = lruCache.get(key)
-                if (emitter.isDisposed) {
-                    Log.d("cacheProxy", "memory is isDisposed")
-                    return
-                }
-                if (TextUtils.isEmpty(result)) {
-                    Log.d("cacheProxy", "memory is from isEmpty")
-//                    emitter.onNext()
-                } else {
-                    // ================================
-                    val t = Gson().fromJson<T>(result, clazz)
-                    emitter.onNext(t)
-                }
-                emitter.onComplete()
+        return Observable.create(ObservableOnSubscribe<T> { emitter ->
+            val result = lruCache.get(key)
+            if (emitter.isDisposed) {
+                return@ObservableOnSubscribe
             }
+            if (TextUtils.isEmpty(result)) {
+//                    emitter.onNext()
+            } else {
+                val t = Gson().fromJson<T>(result, clazz)
+                emitter.onNext(t)
+            }
+            emitter.onComplete()
         })
     }
 
     override fun <T : Bean> put(key: String, value: T) {
         val dataString = Gson().toJson(value)
-        Log.d("cacheProxy", "memory to json $dataString")
         lruCache.put(key, dataString)
     }
 }

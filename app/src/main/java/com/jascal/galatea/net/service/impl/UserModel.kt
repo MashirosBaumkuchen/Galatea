@@ -44,36 +44,8 @@ class UserModel @Inject constructor() {
         userService = retrofit.create(UserService::class.java)
     }
 
-//    fun login(): LiveData<LoginResponse> {
-//        val data: MutableLiveData<LoginResponse> = MutableLiveData()
-//        userService.login("18810659693", "blackcherry")
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(object : Observer<LoginResponse> {
-//                    override fun onError(e: Throwable) {
-//                        Log.d("loginResponse", "error")
-//                        Log.d("loginResponse", "${e.toString()}")
-//                    }
-//
-//                    override fun onNext(t: LoginResponse) {
-//                        data.value = t
-//                        Log.d("loginResponse", "onNext")
-//                    }
-//
-//                    override fun onComplete() {
-//                        Log.d("loginResponse", "onCompleted")
-//                    }
-//
-//                    override fun onSubscribe(d: Disposable) {
-//                    }
-//                })
-//        return data
-//    }
-
     fun login(): LiveData<LoginResponse> {
-        //========= how to generate unique key
-        val url = String.format("18810659693", "login")
-
+        val key = CacheProxy.generatorKey("18810659693", "login")
         val data: MutableLiveData<LoginResponse> = MutableLiveData()
         val networkCache = object : NetworkCache<LoginResponse>() {
             override fun get(key: String, clazz: Class<LoginResponse>): Observable<LoginResponse> {
@@ -82,8 +54,9 @@ class UserModel @Inject constructor() {
                         .observeOn(AndroidSchedulers.mainThread())
             }
         }
+
         CacheProxy.getInstance()
-                .load(url, LoginResponse::class.java, networkCache)
+                .load(key, LoginResponse::class.java, networkCache)
                 .subscribe(object : Observer<LoginResponse> {
                     override fun onError(e: Throwable) {
                         Log.d("cacheProxy", "error")

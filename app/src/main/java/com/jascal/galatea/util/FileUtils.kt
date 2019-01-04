@@ -18,8 +18,6 @@ class FileUtils {
         }
 
         fun readTextFromSDcard(fileName: String): String? {
-            Log.d("cacheProxy", "read file $fileName")
-
             val file = File(fileName)
             if (!file.exists()) {
                 return null
@@ -40,8 +38,6 @@ class FileUtils {
         }
 
         fun saveTextToSdcard(fileName: String, text: String): Boolean {
-            Log.d("cacheProxy", "save to file $fileName")
-
             val file = File(fileName)
             val parentFile = file.parentFile
             if (!parentFile.exists()) {

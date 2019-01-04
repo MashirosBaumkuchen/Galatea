@@ -34,28 +34,31 @@ class CacheProxy {
         fun getInstance(): CacheProxy {
             return CacheProxyInstance.instance
         }
+
+        fun generatorKey(value: String, action: String): String {
+            return value + action
+        }
     }
 
     fun <T : Bean> load(key: String, clazz: Class<T>, networkCache: NetworkCache<T>): Observable<T> {
         Log.d("cacheProxy", "load start")
-        val observable = Observable.concat(
+        return Observable.concat(
                 loadFromMemory(key, clazz),
                 loadFromDisk(key, clazz),
                 loadFromNetwork(key, clazz, networkCache))
-        return observable
     }
 
     private fun <T : Bean> loadFromMemory(key: String, clazz: Class<T>): Observable<T> {
         return memoryCache.get(key, clazz)
                 .doOnNext {
-                    Log.d("cacheProxy", "memory doNext")
+                    Log.d("cacheProxy", "memory load")
                 }
     }
 
     private fun <T : Bean> loadFromDisk(key: String, clazz: Class<T>): Observable<T> {
         return diskCache.get(key, clazz)
                 .doOnNext {
-                    Log.d("cacheProxy", "disk doNext")
+                    Log.d("cacheProxy", "disk load")
                     memoryCache.put(key, it)
                 }
     }
@@ -63,7 +66,7 @@ class CacheProxy {
     private fun <T : Bean> loadFromNetwork(key: String, cls: Class<T>, networkCache: NetworkCache<T>): Observable<T> {
         return networkCache.get(key, cls)
                 .doOnNext { t ->
-                    Log.d("cacheProxy", "net doNext")
+                    Log.d("cacheProxy", "net load")
                     diskCache.put(key, t)
                     memoryCache.put(key, t)
                 }
