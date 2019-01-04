@@ -3,6 +3,8 @@ package com.jascal.galatea.mvvm.list
 import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import android.widget.Toast
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseFragment
 import com.jascal.galatea.mvvm.list.adapter.PlaylistAdapter
@@ -20,11 +22,10 @@ import javax.inject.Inject
  * @email jascal@163.com
  * */
 
-class AlbumsFragment : BaseFragment() {
-    private var playlistAdapter: PlaylistAdapter = PlaylistAdapter()
-
+class AlbumsFragment : BaseFragment(), PlaylistAdapter.OnItemClickListener {
     @Inject
     lateinit var albumsViewModel: AlbumsViewModel
+    private var playlistAdapter: PlaylistAdapter = PlaylistAdapter(this)
 
     override fun layoutID(): Int {
         return R.layout.fragment_albums
@@ -50,4 +51,9 @@ class AlbumsFragment : BaseFragment() {
         playlist.adapter = playlistAdapter
     }
 
+    override fun onItemClick(view: View) {
+        val id = view.tag
+        // open rankDetail page by type
+        Toast.makeText(context, "id is $id", Toast.LENGTH_SHORT).show()
+    }
 }

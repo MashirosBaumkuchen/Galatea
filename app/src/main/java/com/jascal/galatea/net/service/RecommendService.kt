@@ -13,6 +13,11 @@ import retrofit2.http.Query
  * */
 
 interface RecommendService {
+
+    /**
+     * get common resource
+     * */
+
     @GET("recommend/resource")
     fun getRecommendPlaylist(): Observable<RecommendResponse>
 }

@@ -17,7 +17,7 @@ import com.jascal.galatea.net.music.playlist.Playlist
  * @email jascal@163.com
  * */
 
-class PlaylistAdapter : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
+class PlaylistAdapter(var onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
     private var playlistData: List<Playlist>? = null
 
     fun setData(playlist: List<Playlist>) {
@@ -27,7 +27,11 @@ class PlaylistAdapter : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_playlist, viewGroup, false)
-        return ViewHolder(view)
+        val viewHolder = ViewHolder(view)
+        viewHolder.itemView.setOnClickListener {
+            onItemClickListener.onItemClick(it)
+        }
+        return viewHolder
     }
 
     override fun getItemCount(): Int {
@@ -40,6 +44,7 @@ class PlaylistAdapter : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         playlistData?.let {
             Glide.with(viewHolder.cover.context).load(it[position].coverImgUrl).into(viewHolder.cover)
+            viewHolder.itemView.tag = it[position].id
             viewHolder.name.text = it[position].name
             viewHolder.describe.text = generateInfo(it[position])
         }
@@ -54,5 +59,9 @@ class PlaylistAdapter : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
         val cover: ImageView = itemView.findViewById(R.id.cover)
         val name: TextView = itemView.findViewById(R.id.name)
         val describe: TextView = itemView.findViewById(R.id.describe)
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(view: View)
     }
 }

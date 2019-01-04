@@ -1,4 +1,4 @@
-package com.jascal.galatea.mvvm.rank
+package com.jascal.galatea.mvvm.detail
 
 import com.jascal.galatea.base.BaseActivity
 
@@ -9,7 +9,7 @@ import com.jascal.galatea.base.BaseActivity
  * @email jascal@163.com
  * */
 
-class RankDetailActivity:BaseActivity(){
+class PlaylistDetailActivity:BaseActivity(){
 
     override fun layoutID(): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

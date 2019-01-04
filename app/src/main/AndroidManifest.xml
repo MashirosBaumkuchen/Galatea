@@ -23,7 +23,7 @@
         </activity>
 
         <activity android:name=".mvvm.main.MainActivity" />
-        <activity android:name=".mvvm.rank.RankDetailActivity" />
+        <activity android:name=".mvvm.detail.PlaylistDetailActivity" />
     </application>
 
 </manifest>

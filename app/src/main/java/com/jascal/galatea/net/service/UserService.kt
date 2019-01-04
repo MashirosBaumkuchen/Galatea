@@ -15,6 +15,10 @@ import retrofit2.http.Query
 
 interface UserService {
 
+    /**
+     * get user`s info
+     * */
+
     @GET("login/cellphone")
     fun login(@Query("phone") phone: String, @Query("password") password: String)
             : Observable<LoginResponse>
