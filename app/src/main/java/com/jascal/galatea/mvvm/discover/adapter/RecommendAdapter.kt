@@ -19,7 +19,7 @@ import com.jascal.galatea.net.music.recommend.Recommend
  * @email jascal@163.com
  * */
 
-class RankAdapter(var onRankItemClickListener: OnRankItemClickListener) : Adapter<RankAdapter.ViewHolder>() {
+class RecommendAdapter(var onRankItemClickListener: OnRankItemClickListener) : Adapter<RecommendAdapter.ViewHolder>() {
     private var rankData: List<Recommend>? = null
 
     fun setData(ranks: List<Recommend>) {
@@ -29,7 +29,7 @@ class RankAdapter(var onRankItemClickListener: OnRankItemClickListener) : Adapte
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_rank, viewGroup, false)
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_recommend, viewGroup, false)
         Log.d("RankAdapter", "onCreateViewHolder")
         val viewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener { v -> onRankItemClickListener.onItemClick(v) }
@@ -45,11 +45,10 @@ class RankAdapter(var onRankItemClickListener: OnRankItemClickListener) : Adapte
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         rankData?.let {
-            Glide.with(viewHolder.rankBg.context).load(it[position].picUrl).into(viewHolder.rankBg)
-            viewHolder.rankTitle.text = it[position].name
+            Glide.with(viewHolder.recommendBg.context).load(it[position].picUrl).into(viewHolder.recommendBg)
             viewHolder.itemView.tag = it[position].id
-            viewHolder.first.text = it[position].copywriter
-            viewHolder.second.text = it[position].playcount.toString()
+            viewHolder.first.text = it[position].name
+            viewHolder.second.text = it[position].copywriter
             viewHolder.third.text = it[position].creator.nickname
             viewHolder.fourth.text = it[position].creator.signature
             Log.d("RankAdapter", "onBindViewHolder")
@@ -58,12 +57,11 @@ class RankAdapter(var onRankItemClickListener: OnRankItemClickListener) : Adapte
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var rankBg = itemView.findViewById<ImageView>(R.id.rankBg)
-        var rankTitle = itemView.findViewById<TextView>(R.id.rankTitle)
-        var first = itemView.findViewById<TextView>(R.id.first)
-        var second = itemView.findViewById<TextView>(R.id.second)
-        var third = itemView.findViewById<TextView>(R.id.third)
-        var fourth = itemView.findViewById<TextView>(R.id.fourth)
+        var recommendBg = itemView.findViewById<ImageView>(R.id.recommendBg)!!
+        var first = itemView.findViewById<TextView>(R.id.first)!!
+        var second = itemView.findViewById<TextView>(R.id.second)!!
+        var third = itemView.findViewById<TextView>(R.id.third)!!
+        var fourth = itemView.findViewById<TextView>(R.id.fourth)!!
     }
 
     interface OnRankItemClickListener {

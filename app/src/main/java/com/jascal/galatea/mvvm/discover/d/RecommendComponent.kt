@@ -11,6 +11,6 @@ import dagger.Component
  * */
 
 @Component
-interface RankComponent {
+interface RecommendComponent {
     fun inject(discoverViewModel: DiscoverViewModel)
 }

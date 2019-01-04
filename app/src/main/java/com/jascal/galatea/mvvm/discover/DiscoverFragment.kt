@@ -8,7 +8,7 @@ import android.widget.Toast
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseFragment
 import com.jascal.galatea.ext.log
-import com.jascal.galatea.mvvm.discover.adapter.RankAdapter
+import com.jascal.galatea.mvvm.discover.adapter.RecommendAdapter
 import com.jascal.galatea.mvvm.discover.d.DaggerDiscoverComponent
 import com.jascal.galatea.mvvm.discover.vm.DiscoverViewModel
 import com.jascal.galatea.net.music.recommend.RecommendResponse
@@ -22,10 +22,10 @@ import javax.inject.Inject
  * @email jascal@163.com
  * */
 
-class DiscoverFragment : BaseFragment(), RankAdapter.OnRankItemClickListener {
+class DiscoverFragment : BaseFragment(), RecommendAdapter.OnRankItemClickListener {
     @Inject
     lateinit var viewModel: DiscoverViewModel
-    private val rankAdapter: RankAdapter = RankAdapter(this)
+    private val recommendAdapter: RecommendAdapter = RecommendAdapter(this)
 
     override fun layoutID(): Int {
         return R.layout.fragment_discover
@@ -36,7 +36,7 @@ class DiscoverFragment : BaseFragment(), RankAdapter.OnRankItemClickListener {
         DaggerDiscoverComponent.create().inject(this)
         viewModel.getRecommend().observe(this, Observer<RecommendResponse> {
             log("on get recommend")
-            rankAdapter.setData(it!!.recommend)
+            recommendAdapter.setData(it!!.recommend)
         })
 
     }
@@ -50,14 +50,7 @@ class DiscoverFragment : BaseFragment(), RankAdapter.OnRankItemClickListener {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         val layoutManager = LinearLayoutManager(this.context)
         recycler.layoutManager = layoutManager
-        recycler.adapter = rankAdapter
-
-        reflash.setOnClickListener {
-            viewModel.getRecommend().observe(this, Observer<RecommendResponse> {
-                log("on get recommend")
-                rankAdapter.setData(it!!.recommend)
-            })
-        }
+        recycler.adapter = recommendAdapter
     }
 
     override fun onItemClick(view: View) {
