@@ -45,7 +45,7 @@ class UserModel @Inject constructor() {
     }
 
     fun login(): LiveData<LoginResponse> {
-        val key = CacheProxy.generatorKey("18810659693", "login")
+        val key = CacheProxy.generatorKey("18810659693", Config.ACTION_LOGIN)
         val data: MutableLiveData<LoginResponse> = MutableLiveData()
         val networkCache = object : NetworkCache<LoginResponse>() {
             override fun get(key: String, clazz: Class<LoginResponse>): Observable<LoginResponse> {
@@ -54,7 +54,6 @@ class UserModel @Inject constructor() {
                         .observeOn(AndroidSchedulers.mainThread())
             }
         }
-
         CacheProxy.getInstance()
                 .load(key, LoginResponse::class.java, networkCache)
                 .subscribe(object : Observer<LoginResponse> {
@@ -80,14 +79,23 @@ class UserModel @Inject constructor() {
     }
 
     fun getUserPlaylist(userId: Int = 293334466): LiveData<UserPlaylistResponse> {
+        val key = CacheProxy.generatorKey(userId.toString(), Config.ACTION_PLAYLIST)
         val data: MutableLiveData<UserPlaylistResponse> = MutableLiveData()
-        userService.getUserPlaylist(userId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        val networkCache = object : NetworkCache<UserPlaylistResponse>() {
+            override fun get(key: String, cls: Class<UserPlaylistResponse>): Observable<UserPlaylistResponse> {
+                return userService.getUserPlaylist(userId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+            }
+        }
+        CacheProxy.getInstance()
+                .load(key, UserPlaylistResponse::class.java, networkCache)
                 .subscribe(object : Observer<UserPlaylistResponse> {
-                    override fun onError(e: Throwable) {
-                        Log.d("getUserPlaylist", "error")
-                        Log.d("getUserPlaylist", "${e.toString()}")
+                    override fun onComplete() {
+                        Log.d("getUserPlaylist", "onCompleted")
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
                     }
 
                     override fun onNext(t: UserPlaylistResponse) {
@@ -95,14 +103,10 @@ class UserModel @Inject constructor() {
                         Log.d("getUserPlaylist", "onCompleted")
                     }
 
-                    override fun onComplete() {
-                        Log.d("getUserPlaylist", "onCompleted")
+                    override fun onError(e: Throwable) {
+                        Log.d("getUserPlaylist", "error")
+                        Log.d("getUserPlaylist", "${e.toString()}")
                     }
-
-
-                    override fun onSubscribe(d: Disposable) {
-                    }
-
                 })
         return data
     }

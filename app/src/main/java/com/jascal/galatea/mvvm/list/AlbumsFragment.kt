@@ -32,10 +32,15 @@ class AlbumsFragment : BaseFragment() {
 
     override fun initData() {
         DaggerAlbumsComponent.create().inject(this)
+
         albumsViewModel.getUserPlaylist()
                 .observe(this, Observer<UserPlaylistResponse> {
                     playlistAdapter.setData(it!!.playlist)
                 })
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
     }
 
     override fun initView() {

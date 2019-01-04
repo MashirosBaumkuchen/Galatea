@@ -35,11 +35,15 @@ class DiscoverFragment : BaseFragment(), RankAdapter.OnRankItemClickListener {
     override fun initData() {
         log("initData")
         DaggerDiscoverComponent.create().inject(this)
-
         viewModel.getRanksFromApi().observe(this, Observer<RankResponse> { rankResponse ->
             Log.d("requestSongs", "onChanged")
             rankAdapter.setData(rankResponse!!.result)
         })
+
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
     }
 
     override fun initView() {

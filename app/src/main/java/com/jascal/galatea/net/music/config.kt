@@ -10,5 +10,8 @@ package com.jascal.galatea.net.music
 class Config {
     companion object {
         const val BASE = "http://10.8.10.140:3000/"
+
+        const val ACTION_LOGIN = "login"
+        const val ACTION_PLAYLIST = "playlist"
     }
 }

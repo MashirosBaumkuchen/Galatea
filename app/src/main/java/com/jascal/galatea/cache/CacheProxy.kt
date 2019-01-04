@@ -35,6 +35,9 @@ class CacheProxy {
             return CacheProxyInstance.instance
         }
 
+        /**
+         * TODO change to a md5 encode model
+         * */
         fun generatorKey(value: String, action: String): String {
             return value + action
         }

@@ -38,6 +38,11 @@ class ProfileFragment : BaseFragment() {
                 })
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+
+    }
+
     override fun initView() {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
