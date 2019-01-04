@@ -43,7 +43,7 @@ class MusicModel @Inject constructor() {
         musicService = retrofit.create(MusicService::class.java)
     }
 
-    fun getPlayListDetail(playlistID: Int): LiveData<PlaylistDetailResponse> {
+    fun getPlayListDetail(playlistID: Long): LiveData<PlaylistDetailResponse> {
         val data: MutableLiveData<PlaylistDetailResponse> = MutableLiveData()
         val key = CacheProxy.generatorKey("18810659693", "playlistDetail")
         val networkCache = object : NetworkCache<PlaylistDetailResponse>() {

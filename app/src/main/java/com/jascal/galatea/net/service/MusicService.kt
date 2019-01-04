@@ -19,5 +19,5 @@ interface MusicService {
      * */
 
     @GET("playlist/detail")
-    fun getPlaylistDetail(@Query("id") playlistID: Int): Observable<PlaylistDetailResponse>
+    fun getPlaylistDetail(@Query("id") playlistID: Long): Observable<PlaylistDetailResponse>
 }
