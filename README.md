@@ -204,5 +204,6 @@ package: com.jascal.galatea
 
 #### todo list
 
+* music play, 
 * generator key method, md5
 * viewPagerAdapter destroy item method, apply lazy load fragment
