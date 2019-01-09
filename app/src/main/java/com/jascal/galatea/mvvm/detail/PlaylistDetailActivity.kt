@@ -12,6 +12,7 @@ import com.jascal.galatea.ext.log
 import com.jascal.galatea.mvvm.detail.adapter.SongsAdapter
 import com.jascal.galatea.mvvm.detail.d.DaggerPlaylistComponent
 import com.jascal.galatea.mvvm.detail.vm.PlaylistDetailViewModel
+import com.jascal.galatea.mvvm.play.PlayerActivity
 import com.jascal.galatea.net.music.playlist.PlaylistDetailResponse
 import kotlinx.android.synthetic.main.activity_playlist_detail.*
 import javax.inject.Inject
@@ -63,11 +64,11 @@ class PlaylistDetailActivity : BaseActivity(), SongsAdapter.OnItemClickListener 
 
     override fun onItemClick(view: View) {
         Log.d("turnFunction", "Click")
-        val id: Long = view.tag as Long
+        val id: Int = view.tag as Int
         // open rankDetail page by type
         Toast.makeText(this, "id is $id", Toast.LENGTH_SHORT).show()
         val intent: Intent = Intent()
-        intent.setClass(this, PlaylistDetailActivity::class.java)
+        intent.setClass(this, PlayerActivity::class.java)
         intent.putExtra("songID", id)
         startActivity(intent)
     }

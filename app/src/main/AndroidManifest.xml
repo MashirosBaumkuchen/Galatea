@@ -28,6 +28,16 @@
             android:name=".mvvm.play.PlayerActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Player" />
+
+        <service
+            android:name=".remote.MusicService"
+            android:process=":player">
+            <intent-filter>
+                <action android:name="android.intent.action.MUSIC_SERVICE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </service>
     </application>
 
 </manifest>
