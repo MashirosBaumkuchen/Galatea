@@ -1,12 +1,15 @@
 package com.jascal.galatea.mvvm.list
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseFragment
+import com.jascal.galatea.mvvm.detail.PlaylistDetailActivity
 import com.jascal.galatea.mvvm.list.adapter.PlaylistAdapter
 import com.jascal.galatea.mvvm.list.d.DaggerAlbumsComponent
 import com.jascal.galatea.mvvm.list.vm.AlbumsViewModel
@@ -52,8 +55,13 @@ class AlbumsFragment : BaseFragment(), PlaylistAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(view: View) {
-        val id = view.tag
+        Log.d("turnFunction", "Click")
+        val id: Long = view.tag as Long
         // open rankDetail page by type
         Toast.makeText(context, "id is $id", Toast.LENGTH_SHORT).show()
+        val intent: Intent = Intent()
+        intent.setClass(context, PlaylistDetailActivity::class.java)
+        intent.putExtra("playlistID", id)
+        startActivity(intent)
     }
 }

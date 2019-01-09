@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.jascal.galatea.R
@@ -56,6 +57,7 @@ class DiscoverFragment : BaseFragment(), RecommendAdapter.OnRankItemClickListene
     }
 
     override fun onItemClick(view: View) {
+        Log.d("turnFunction", "Click")
         val id: Long = view.tag as Long
         // open rankDetail page by type
         Toast.makeText(context, "id is $id", Toast.LENGTH_SHORT).show()

@@ -2,10 +2,12 @@ package com.jascal.galatea.mvvm.detail
 
 import android.arch.lifecycle.Observer
 import android.support.v7.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
+import android.util.Log
+import android.view.View
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseActivity
 import com.jascal.galatea.ext.log
+import com.jascal.galatea.mvvm.detail.adapter.SongsAdapter
 import com.jascal.galatea.mvvm.detail.d.DaggerPlaylistComponent
 import com.jascal.galatea.mvvm.detail.vm.PlaylistDetailViewModel
 import com.jascal.galatea.net.music.playlist.PlaylistDetailResponse
@@ -19,22 +21,26 @@ import javax.inject.Inject
  * @email jascal@163.com
  * */
 
-class PlaylistDetailActivity : BaseActivity() {
+class PlaylistDetailActivity : BaseActivity(), SongsAdapter.OnItemClickListener {
 
     @Inject
     lateinit var viewModel: PlaylistDetailViewModel
+    private val songsAdapter = SongsAdapter(this)
 
     override fun layoutID(): Int {
         return R.layout.activity_playlist_detail
     }
 
     override fun initData() {
+        Log.d("turnFunction", "in new activity")
+        log("play list detail activity id is ${intent.getLongExtra("playlistID", 0)}")
         DaggerPlaylistComponent.create().inject(this)
         viewModel.getPlaylistDetail(intent.getLongExtra("playlistID", 0))
                 .observe(this, Observer<PlaylistDetailResponse> {
                     log("result is ${it.toString()}")
                     it?.let {
-                        Glide.with(bg.context).load(it.playlist.coverImgUrl).into(bg)
+                        songsAdapter.setData(it.playlist.tracks)
+                        progressBar.visibility = View.INVISIBLE
                     }
                 })
     }
@@ -43,6 +49,18 @@ class PlaylistDetailActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         val layoutManager = LinearLayoutManager(this)
         songsList.layoutManager = layoutManager
+        songsList.adapter = songsAdapter
+        back.setOnClickListener {
+            back()
+        }
+    }
+
+    fun back() {
+        this.finish()
+    }
+
+    override fun onItemClick(view: View) {
+        val songID = view.tag
     }
 
 }

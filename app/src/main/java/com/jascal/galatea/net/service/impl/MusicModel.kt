@@ -2,6 +2,7 @@ package com.jascal.galatea.net.service.impl
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.util.Log
 import com.jascal.galatea.cache.CacheProxy
 import com.jascal.galatea.cache.impl.NetworkCache
 import com.jascal.galatea.net.music.Config
@@ -45,7 +46,7 @@ class MusicModel @Inject constructor() {
 
     fun getPlayListDetail(playlistID: Long): LiveData<PlaylistDetailResponse> {
         val data: MutableLiveData<PlaylistDetailResponse> = MutableLiveData()
-        val key = CacheProxy.generatorKey("18810659693", "playlistDetail")
+        val key = CacheProxy.generatorKey("playlist", "$playlistID")
         val networkCache = object : NetworkCache<PlaylistDetailResponse>() {
             override fun get(key: String, cls: Class<PlaylistDetailResponse>): Observable<PlaylistDetailResponse> {
                 return musicService.getPlaylistDetail(playlistID)
@@ -67,6 +68,7 @@ class MusicModel @Inject constructor() {
                     }
 
                     override fun onError(e: Throwable) {
+                        Log.d("playlistDetail", e.toString())
                     }
                 })
         return data

@@ -4,7 +4,7 @@ import com.jascal.galatea.net.music.Bean
 
 /**
  * @author ihave4cat
- * @describe TODO
+ * @describe this a total bean from a simple request
  * @data on 2019/1/4 3:38 PM
  * @email jascal@163.com
  * */
@@ -44,7 +44,7 @@ data class PlaylistWithTrack(
         val description: String,
         val status: Int,
         val name: String,
-        val id: Int,
+        val id: Long,
         val shareCount: Int,
         val coverImgId_str: String,
         val commentCount: Int
@@ -133,7 +133,7 @@ data class PlaylistCreator(
         val accountStatus: Int,
         val gender: Int,
         val city: Int,
-        val birthday: Int,
+        val birthday: Long,
         val userId: Int,
         val userType: Int,
         val nickname: String,
