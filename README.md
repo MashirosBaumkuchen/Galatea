@@ -41,16 +41,19 @@ and mvvm separate view from model proxy
 
 #### api
 
-ready to change api
+~~ready to change api~~
 
-// rank list
-https://api.apiopen.top/musicRankings
+~~rank list~~
+~~https://api.apiopen.top/musicRankings~~
 
-// rank detail
-https://api.apiopen.top/musicRankingsDetails?type=1
+~~rank detail~~
+~~https://api.apiopen.top/musicRankingsDetails?type=1~~
 
-// song
-https://api.apiopen.top/musicDetails?id=610722309
+~~song~~
+~~https://api.apiopen.top/musicDetails?id=610722309~~
+
+API from [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi), 
+the API backend system now is just running on localhost
 
 #### application structure
 
