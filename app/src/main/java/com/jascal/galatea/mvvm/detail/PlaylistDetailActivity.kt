@@ -2,6 +2,7 @@ package com.jascal.galatea.mvvm.detail
 
 import android.arch.lifecycle.Observer
 import android.support.v7.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseActivity
 import com.jascal.galatea.ext.log
@@ -32,6 +33,9 @@ class PlaylistDetailActivity : BaseActivity() {
         viewModel.getPlaylistDetail(intent.getLongExtra("playlistID", 0))
                 .observe(this, Observer<PlaylistDetailResponse> {
                     log("result is ${it.toString()}")
+                    it?.let {
+                        Glide.with(bg.context).load(it.playlist.coverImgUrl).into(bg)
+                    }
                 })
     }
 
