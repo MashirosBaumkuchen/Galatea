@@ -1,9 +1,11 @@
 package com.jascal.galatea.mvvm.detail
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseActivity
 import com.jascal.galatea.ext.log
@@ -60,7 +62,14 @@ class PlaylistDetailActivity : BaseActivity(), SongsAdapter.OnItemClickListener 
     }
 
     override fun onItemClick(view: View) {
-        val songID = view.tag
+        Log.d("turnFunction", "Click")
+        val id: Long = view.tag as Long
+        // open rankDetail page by type
+        Toast.makeText(this, "id is $id", Toast.LENGTH_SHORT).show()
+        val intent: Intent = Intent()
+        intent.setClass(this, PlaylistDetailActivity::class.java)
+        intent.putExtra("songID", id)
+        startActivity(intent)
     }
 
 }

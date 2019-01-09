@@ -24,6 +24,10 @@
 
         <activity android:name=".mvvm.main.MainActivity" />
         <activity android:name=".mvvm.detail.PlaylistDetailActivity" />
+        <activity
+            android:name=".mvvm.play.PlayerActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Player" />
     </application>
 
 </manifest>
