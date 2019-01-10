@@ -16,6 +16,10 @@ import com.jascal.galatea.mvvm.play.d.DaggerPlayerComponent
 import com.jascal.galatea.mvvm.play.vm.PlayerViewModel
 import com.jascal.galatea.net.music.playlist.SongsDetail
 import com.jascal.galatea.remote.Config
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_player.*
 import kotlinx.android.synthetic.main.layout_player.*
 import javax.inject.Inject
@@ -42,27 +46,55 @@ class PlayerActivity : BaseActivity() {
         songID = intent.getIntExtra("songID", 0)
         Log.d("aidl-galatea", "song id is $songID")
         DaggerPlayerComponent.create().inject(this)
-        initService()
-
         playerViewModel.getSongDetail(songID)
                 .observe(this, Observer<SongsDetail> { it ->
                     it?.let {
                         if (it.songs.isNotEmpty()) {
                             songsName.text = it.songs[0].name
                             Glide.with(this@PlayerActivity).load(it.songs[0].al.picUrl).into(cover)
+                            play()
                         }
                     }
                 })
+
+
+    }
+
+    private fun play() {
+        Observable.create<String> {
+            val intent = Intent()
+            intent.action = Config.ACTION
+            intent.`package` = Config.PACKAGE
+            bindService(intent, conn, Context.BIND_AUTO_CREATE)
+            it.onNext("intent done") }
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : io.reactivex.Observer<String> {
+                    override fun onComplete() {
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                    }
+
+                    override fun onNext(t: String) {
+                        Toast.makeText(this@PlayerActivity, t, Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError(e: Throwable) {
+                    }
+                })
+
     }
 
     override fun initView() {
+
     }
 
     private fun initService() {
         val intent = Intent()
         intent.action = Config.ACTION
         intent.`package` = Config.PACKAGE
-        startService(intent)
+//        startService(intent)
         bindService(intent, conn, Context.BIND_AUTO_CREATE)
     }
 
@@ -81,7 +113,7 @@ class PlayerActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unbindService(conn)
+//        unbindService(conn)
     }
 
 }

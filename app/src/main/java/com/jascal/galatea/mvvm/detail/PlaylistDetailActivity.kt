@@ -5,7 +5,6 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseActivity
 import com.jascal.galatea.ext.log
@@ -66,8 +65,7 @@ class PlaylistDetailActivity : BaseActivity(), SongsAdapter.OnItemClickListener 
         Log.d("turnFunction", "Click")
         val id: Int = view.tag as Int
         // open rankDetail page by type
-        Toast.makeText(this, "id is $id", Toast.LENGTH_SHORT).show()
-        val intent: Intent = Intent()
+        val intent = Intent()
         intent.setClass(this, PlayerActivity::class.java)
         intent.putExtra("songID", id)
         startActivity(intent)

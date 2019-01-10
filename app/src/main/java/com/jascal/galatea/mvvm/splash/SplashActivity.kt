@@ -6,6 +6,7 @@ import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseActivity
 import com.jascal.galatea.ext.log
 import com.jascal.galatea.mvvm.main.MainActivity
+import com.jascal.galatea.remote.Config
 import kotlinx.android.synthetic.main.activity_splash.*
 
 /**
@@ -23,6 +24,10 @@ class SplashActivity : BaseActivity() {
 
     override fun initData() {
         log("initData")
+        val intent = Intent()
+        intent.action = Config.ACTION
+        intent.`package` = Config.PACKAGE
+        startService(intent)
     }
 
     override fun initView() {
