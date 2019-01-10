@@ -2,8 +2,9 @@ package com.jascal.galatea.remote
 
 import android.app.Service
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.IBinder
-import com.jascal.galatea.IMusicPlayer
+import android.util.Log
 import com.jascal.galatea.remote.impl.MusicPlayer
 
 /**
@@ -13,11 +14,32 @@ import com.jascal.galatea.remote.impl.MusicPlayer
  * @email jascal@163.com
  * */
 
-class MusicService : Service() {
-    private val iMusicPlayer: IMusicPlayer.Stub = MusicPlayer(this)
+open class MusicService : Service() {
+    private lateinit var mediaPlayer: MediaPlayer
 
-    override fun onBind(intent: Intent?): IBinder {
-        return iMusicPlayer
+    override fun onCreate() {
+        super.onCreate()
+        Log.d("aidl-galatea", "service is created")
+        mediaPlayer = MediaPlayer()
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Log.d("aidl-galatea", "service is onStartCommand")
+        return super.onStartCommand(intent, flags, startId)
+    }
+
+    override fun onBind(intent: Intent?): IBinder {
+        Log.d("aidl-galatea", "service is onBind")
+        return MusicPlayer(mediaPlayer, this)
+    }
+
+    override fun onUnbind(intent: Intent?): Boolean {
+        Log.d("aidl-galatea", "service is onUnBind")
+        return super.onUnbind(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("aidl-galatea", "service is onDestroy")
+    }
 }

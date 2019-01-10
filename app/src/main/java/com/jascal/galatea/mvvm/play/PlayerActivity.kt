@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.jascal.galatea.IMusicPlayer
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseActivity
+import com.jascal.galatea.remote.Config
 
 /**
  * @author ihave4cat
@@ -20,13 +21,14 @@ import com.jascal.galatea.base.BaseActivity
 
 class PlayerActivity : BaseActivity() {
     private lateinit var musicPlayer: IMusicPlayer
+    private var songID: Int = -1
 
     override fun layoutID(): Int {
         return R.layout.activity_player
     }
 
     override fun initData() {
-        val songID = intent.getIntExtra("playlistID", 0)
+        songID = intent.getIntExtra("songID", 0)
         Log.d("aidl-galatea", "song id is $songID")
         initService()
         // https://music.163.com/song/media/outer/url?id=$songID.mp3
@@ -39,8 +41,9 @@ class PlayerActivity : BaseActivity() {
 
     private fun initService() {
         val intent = Intent()
-        intent.action = "android.intent.action.MUSIC_SERVICE"
-        intent.`package` = "com.jascal.galatea"
+        intent.action = Config.ACTION
+        intent.`package` = Config.PACKAGE
+        startService(intent)
         bindService(intent, conn, Context.BIND_AUTO_CREATE)
     }
 
@@ -49,7 +52,7 @@ class PlayerActivity : BaseActivity() {
             musicPlayer = IMusicPlayer.Stub.asInterface(iBinder)
             Toast.makeText(this@PlayerActivity, "ready", Toast.LENGTH_SHORT).show()
             Log.d("aidl-galatea", "in playerActivity, and process is ${android.os.Process.myPid()}")
-            musicPlayer.play("")
+            musicPlayer.play("https://music.163.com/song/media/outer/url?id=$songID.mp3")
         }
 
         override fun onServiceDisconnected(componentName: ComponentName) {

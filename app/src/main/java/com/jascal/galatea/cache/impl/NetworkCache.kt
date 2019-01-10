@@ -12,5 +12,5 @@ import io.reactivex.Observable
 
 abstract class NetworkCache<T : Bean> {
 
-    abstract operator fun get(key: String, cls: Class<T>): Observable<T>
+    abstract operator fun get(key: String, clazz: Class<T>): Observable<T>
 }

@@ -82,7 +82,7 @@ class UserModel @Inject constructor() {
         val key = CacheProxy.generatorKey(userId.toString(), Config.ACTION_PLAYLIST)
         val data: MutableLiveData<UserPlaylistResponse> = MutableLiveData()
         val networkCache = object : NetworkCache<UserPlaylistResponse>() {
-            override fun get(key: String, cls: Class<UserPlaylistResponse>): Observable<UserPlaylistResponse> {
+            override fun get(key: String, clazz: Class<UserPlaylistResponse>): Observable<UserPlaylistResponse> {
                 return userService.getUserPlaylist(userId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

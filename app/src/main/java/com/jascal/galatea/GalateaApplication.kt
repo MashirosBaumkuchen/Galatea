@@ -2,6 +2,8 @@ package com.jascal.galatea
 
 import android.app.Application
 import android.content.Context
+import android.content.Intent
+import com.jascal.galatea.remote.Config
 
 /**
  * @author ihave4cat
@@ -31,6 +33,7 @@ class GalateaApplication : Application() {
         if (!ROOT_DIR.endsWith("/")) {
             ROOT_DIR += "/"
         }
+
     }
 
     fun getRootDir(): String {

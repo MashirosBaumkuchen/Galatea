@@ -47,7 +47,7 @@ class RecommendModel @Inject constructor() {
         val key = CacheProxy.generatorKey("18810659693", "recommend")
         val data: MutableLiveData<RecommendResponse> = MutableLiveData()
         val networkCache = object : NetworkCache<RecommendResponse>() {
-            override fun get(key: String, cls: Class<RecommendResponse>): Observable<RecommendResponse> {
+            override fun get(key: String, clazz: Class<RecommendResponse>): Observable<RecommendResponse> {
                 return recommendService.getRecommendPlaylist()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

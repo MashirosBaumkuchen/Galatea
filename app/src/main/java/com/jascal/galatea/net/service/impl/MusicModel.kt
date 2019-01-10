@@ -48,7 +48,7 @@ class MusicModel @Inject constructor() {
         val data: MutableLiveData<PlaylistDetailResponse> = MutableLiveData()
         val key = CacheProxy.generatorKey("playlist", "$playlistID")
         val networkCache = object : NetworkCache<PlaylistDetailResponse>() {
-            override fun get(key: String, cls: Class<PlaylistDetailResponse>): Observable<PlaylistDetailResponse> {
+            override fun get(key: String, clazz: Class<PlaylistDetailResponse>): Observable<PlaylistDetailResponse> {
                 return musicService.getPlaylistDetail(playlistID)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
