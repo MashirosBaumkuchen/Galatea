@@ -5,12 +5,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Build
 import android.os.IBinder
-import android.support.v4.content.ContextCompat
 import android.util.Log
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.jascal.galatea.IMusicPlayer
@@ -60,23 +56,6 @@ class PlayerActivity : BaseActivity() {
     }
 
     override fun initView() {
-        initToolbar()
-    }
-
-    private fun initToolbar() {
-        val rootView = window.decorView.findViewById<ViewGroup>(android.R.id.content)
-        rootView.setPadding(0, getStatusBarHeight(), 0, 0)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.colorBrown)
-        } else {
-            val decorView: ViewGroup = window.decorView as ViewGroup
-            val statusBarView = View(this)
-            val lp: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    getStatusBarHeight())
-
-            statusBarView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorBrown))
-            decorView.addView(statusBarView, lp)
-        }
     }
 
     private fun initService() {
