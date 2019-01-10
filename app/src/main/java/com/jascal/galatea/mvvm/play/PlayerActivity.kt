@@ -66,16 +66,6 @@ class PlayerActivity : BaseActivity() {
         bindService(intent, conn, Context.BIND_AUTO_CREATE)
     }
 
-    private fun getStatusBarHeight(): Int {
-        var result: Int = 0
-        val resourceID = resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceID > 0) {
-            result = resources.getDimensionPixelSize(resourceID)
-        }
-        return result
-    }
-
-
     private val conn = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {
             musicPlayer = IMusicPlayer.Stub.asInterface(iBinder)
