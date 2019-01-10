@@ -3,11 +3,11 @@
 #### base
 
 * kotlin
-* {mvp?mvvm} ok apply MVVM, liveData& ViewModel
+* apply MVVM, liveData& ViewModel
 * rxjava+retrofit+okhttp
 * glide 
 * material design
-* binder
+* aidl
 * remoteView
 * custom view
 * etc
