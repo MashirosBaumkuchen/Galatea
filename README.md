@@ -6,7 +6,7 @@ just for learning
 
 * kotlin
 * apply MVVM, liveData& ViewModel
-* rxjava+retrofit+okhttp
+* rxjava+retrofit+dagger2+okhttp
 * memory+disk+net
 * glide 
 * material design
