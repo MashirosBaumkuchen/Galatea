@@ -1,5 +1,7 @@
 ### Galatea project
 
+just for learning
+
 #### base
 
 * kotlin
