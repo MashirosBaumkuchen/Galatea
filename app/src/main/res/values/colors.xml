@@ -11,4 +11,6 @@
 
     <color name="colorSplashBg">#eb445a</color>
     <color name="colorPureWrite">#ffffff</color>
+
+    <color name="colorBrown">#795548</color>
 </resources>

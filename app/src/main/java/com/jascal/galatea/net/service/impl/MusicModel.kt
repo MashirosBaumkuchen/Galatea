@@ -7,6 +7,7 @@ import com.jascal.galatea.cache.CacheProxy
 import com.jascal.galatea.cache.impl.NetworkCache
 import com.jascal.galatea.net.music.Config
 import com.jascal.galatea.net.music.playlist.PlaylistDetailResponse
+import com.jascal.galatea.net.music.playlist.SongsDetail
 import com.jascal.galatea.net.service.MusicService
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -70,6 +71,37 @@ class MusicModel @Inject constructor() {
                     override fun onError(e: Throwable) {
                         Log.d("playlistDetail", e.toString())
                     }
+                })
+        return data
+    }
+
+    fun getSongDetail(songID: Int): LiveData<SongsDetail> {
+        val data: MutableLiveData<SongsDetail> = MutableLiveData()
+        val key = CacheProxy.generatorKey("songsDetail", "$songID")
+        val networkCache = object : NetworkCache<SongsDetail>() {
+            override fun get(key: String, clazz: Class<SongsDetail>): Observable<SongsDetail> {
+                return musicService.getSongDetail(songID)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+            }
+        }
+
+        CacheProxy.getInstance().load(key, SongsDetail::class.java, networkCache)
+                .subscribe(object : Observer<SongsDetail> {
+                    override fun onComplete() {
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                    }
+
+                    override fun onNext(t: SongsDetail) {
+                        data.value = t
+                    }
+
+                    override fun onError(e: Throwable) {
+                        Log.d("songDetail", e.toString())
+                    }
+
                 })
         return data
     }

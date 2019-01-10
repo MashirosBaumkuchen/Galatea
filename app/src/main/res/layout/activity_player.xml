@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</FrameLayout>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            app:contentInsetStart="0dp"
+            app:title="歌单">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="@dimen/toolbar_icon_size"
+                    android:layout_height="@dimen/toolbar_icon_size"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:src="@mipmap/ic_back" />
+
+                <TextView
+                    android:id="@+id/songsName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="歌名"
+                    android:textColor="?attr/colorTitleText"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/none"
+                    android:layout_width="@dimen/toolbar_icon_size"
+                    android:layout_height="@dimen/toolbar_icon_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/layout_player" />
+
+</android.support.design.widget.CoordinatorLayout>

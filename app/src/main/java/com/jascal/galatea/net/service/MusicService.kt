@@ -1,6 +1,7 @@
 package com.jascal.galatea.net.service
 
 import com.jascal.galatea.net.music.playlist.PlaylistDetailResponse
+import com.jascal.galatea.net.music.playlist.SongsDetail
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -20,4 +21,7 @@ interface MusicService {
 
     @GET("playlist/detail")
     fun getPlaylistDetail(@Query("id") playlistID: Long): Observable<PlaylistDetailResponse>
+
+    @GET("/song/detail")
+    fun getSongDetail(@Query("ids") id: Int): Observable<SongsDetail>
 }

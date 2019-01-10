@@ -15,6 +15,10 @@
 
     <style name="AppTheme.Player" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">#795548</item>
+        <item name="colorPrimaryDark">#5D4037</item>
+        <item name="colorAccent">#607D8B</item>
+        <item name="colorTitleText">@color/colorPureWrite</item>
     </style>
 
 </resources>

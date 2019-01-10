@@ -1,20 +1,33 @@
 package com.jascal.galatea.mvvm.play
 
+import android.arch.lifecycle.Observer
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Build
 import android.os.IBinder
+import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.jascal.galatea.IMusicPlayer
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseActivity
+import com.jascal.galatea.mvvm.play.d.DaggerPlayerComponent
+import com.jascal.galatea.mvvm.play.vm.PlayerViewModel
+import com.jascal.galatea.net.music.playlist.SongsDetail
 import com.jascal.galatea.remote.Config
+import kotlinx.android.synthetic.main.activity_player.*
+import kotlinx.android.synthetic.main.layout_player.*
+import javax.inject.Inject
 
 /**
  * @author ihave4cat
- * @describe TODO
+ * @describe // a.https://music.163.com/song/media/outer/url?id=$songID.mp3
+ *           // b.retrofit GET /song/url?id=$songID
  * @data on 2019/1/9 4:55 PM
  * @email jascal@163.com
  * */
@@ -22,6 +35,8 @@ import com.jascal.galatea.remote.Config
 class PlayerActivity : BaseActivity() {
     private lateinit var musicPlayer: IMusicPlayer
     private var songID: Int = -1
+    @Inject
+    lateinit var playerViewModel: PlayerViewModel
 
     override fun layoutID(): Int {
         return R.layout.activity_player
@@ -30,13 +45,38 @@ class PlayerActivity : BaseActivity() {
     override fun initData() {
         songID = intent.getIntExtra("songID", 0)
         Log.d("aidl-galatea", "song id is $songID")
+        DaggerPlayerComponent.create().inject(this)
         initService()
-        // https://music.163.com/song/media/outer/url?id=$songID.mp3
-        // retrofit GET /song/url?id=$songID
+
+        playerViewModel.getSongDetail(songID)
+                .observe(this, Observer<SongsDetail> { it ->
+                    it?.let {
+                        if (it.songs.isNotEmpty()) {
+                            songsName.text = it.songs[0].name
+                            Glide.with(this@PlayerActivity).load(it.songs[0].al.picUrl).into(cover)
+                        }
+                    }
+                })
     }
 
     override fun initView() {
-//        musicPlayer.play("")
+        initToolbar()
+    }
+
+    private fun initToolbar() {
+        val rootView = window.decorView.findViewById<ViewGroup>(android.R.id.content)
+        rootView.setPadding(0, getStatusBarHeight(), 0, 0)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.colorBrown)
+        } else {
+            val decorView: ViewGroup = window.decorView as ViewGroup
+            val statusBarView = View(this)
+            val lp: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    getStatusBarHeight())
+
+            statusBarView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorBrown))
+            decorView.addView(statusBarView, lp)
+        }
     }
 
     private fun initService() {
@@ -46,6 +86,16 @@ class PlayerActivity : BaseActivity() {
         startService(intent)
         bindService(intent, conn, Context.BIND_AUTO_CREATE)
     }
+
+    private fun getStatusBarHeight(): Int {
+        var result: Int = 0
+        val resourceID = resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceID > 0) {
+            result = resources.getDimensionPixelSize(resourceID)
+        }
+        return result
+    }
+
 
     private val conn = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {
