@@ -12,6 +12,25 @@
 * custom view
 * etc
 
+#### display
+<div>
+  
+  <img src="https://github.com/MashirosBaumkuchen/Galatea/blob/master/pic/splash.png" width="201" height="358" />
+  <img src="https://github.com/MashirosBaumkuchen/Galatea/blob/master/pic/recommend.png" width="201" height="358" />
+  <img src="https://github.com/MashirosBaumkuchen/Galatea/blob/master/pic/playlist.png" width="201" height="358" />
+
+</div>
+
+
+
+<div>
+  
+  <img src="https://github.com/MashirosBaumkuchen/Galatea/blob/master/pic/songs.png" width="201" height="358" />
+  <img src="https://github.com/MashirosBaumkuchen/Galatea/blob/master/pic/player.png" width="201" height="358" />
+  <img src="https://github.com/MashirosBaumkuchen/Galatea/blob/master/pic/profile.png" width="201" height="358" />
+
+</div>
+
 #### liveData+viewModel
 
 why?
