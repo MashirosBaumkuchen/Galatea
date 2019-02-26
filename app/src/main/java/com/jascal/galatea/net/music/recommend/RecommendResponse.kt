@@ -11,9 +11,9 @@ import com.jascal.galatea.net.music.Bean
 
 
 data class RecommendResponse(
-        val code: Int,
-        val featureFirst: Boolean,
-        val haveRcmdSongs: Boolean,
-        val recommend: List<Recommend>
+        val code: Int = 0,
+        val featureFirst: Boolean = false,
+        val haveRcmdSongs: Boolean = false,
+        val recommend: List<Recommend> = ArrayList()
 ) : Bean()
 

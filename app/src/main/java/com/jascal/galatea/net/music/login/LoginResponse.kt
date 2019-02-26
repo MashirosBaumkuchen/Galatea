@@ -11,9 +11,9 @@ import com.jascal.galatea.net.music.Bean
 
 
 data class LoginResponse(
-        val loginType: Int,
-        val code: Int,
-        val account: Account,
-        val profile: Profile,
-        val bindings: List<Binding>
+        val loginType: Int = 0,
+        val code: Int = 0,
+        val account: Account = Account(),
+        val profile: Profile = Profile(),
+        val bindings: List<Binding> = ArrayList()
 ) : Bean()

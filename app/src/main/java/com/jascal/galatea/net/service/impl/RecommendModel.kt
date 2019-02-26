@@ -54,7 +54,7 @@ class RecommendModel @Inject constructor() {
             }
         }
 
-        CacheProxy.getInstance().load(key, RecommendResponse::class.java, networkCache)
+        CacheProxy.getInstance().load(key, RecommendResponse::class.java, networkCache, tag="discovery")
                 .subscribe(object : Observer<RecommendResponse> {
                     override fun onComplete() {
                         Log.d("recommend", "complete")

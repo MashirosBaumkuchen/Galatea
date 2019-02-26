@@ -11,7 +11,7 @@ import com.jascal.galatea.net.music.Bean
 
 
 data class UserPlaylistResponse(
-        val more: Boolean,
-        val playlist: List<Playlist>,
-        val code: Int
+        val more: Boolean = false,
+        val playlist: List<Playlist> = ArrayList(),
+        val code: Int = 0
 ) : Bean()

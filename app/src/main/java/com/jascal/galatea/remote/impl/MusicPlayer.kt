@@ -16,7 +16,7 @@ import com.jascal.galatea.IMusicPlayer
 class MusicPlayer constructor(var mediaPlayer: MediaPlayer, var context: Context) : IMusicPlayer.Stub() {
 
     override fun play(uri: String?) {
-        Log.d("aidl-galatea", "function play, process is ${android.os.Process.myPid()}")
+        Log.d("aidl-galatea", "function play, process is ${android.os.Process.myPid()}, uri=$uri")
         mediaPlayer.reset()
         mediaPlayer.setDataSource(context, Uri.parse(uri))
         mediaPlayer.prepare()

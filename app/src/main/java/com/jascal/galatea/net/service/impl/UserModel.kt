@@ -55,7 +55,7 @@ class UserModel @Inject constructor() {
             }
         }
         CacheProxy.getInstance()
-                .load(key, LoginResponse::class.java, networkCache)
+                .load(key, LoginResponse::class.java, networkCache, tag = "login")
                 .subscribe(object : Observer<LoginResponse> {
                     override fun onError(e: Throwable) {
                         Log.d("cacheProxy", "error")
@@ -89,7 +89,7 @@ class UserModel @Inject constructor() {
             }
         }
         CacheProxy.getInstance()
-                .load(key, UserPlaylistResponse::class.java, networkCache)
+                .load(key, UserPlaylistResponse::class.java, networkCache, tag="usersPlaylist")
                 .subscribe(object : Observer<UserPlaylistResponse> {
                     override fun onComplete() {
                         Log.d("getUserPlaylist", "onCompleted")
@@ -105,7 +105,7 @@ class UserModel @Inject constructor() {
 
                     override fun onError(e: Throwable) {
                         Log.d("getUserPlaylist", "error")
-                        Log.d("getUserPlaylist", "${e.toString()}")
+                        Log.d("getUserPlaylist", "$e")
                     }
                 })
         return data

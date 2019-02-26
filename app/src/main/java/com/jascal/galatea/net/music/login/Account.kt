@@ -9,18 +9,18 @@ package com.jascal.galatea.net.music.login
 
 
 data class Account(
-        val id: Int,
-        val userName: String,
-        val type: Int,
-        val status: Int,
-        val whitelistAuthority: Int,
-        val createTime: Long,
-        val salt: String,
-        val tokenVersion: Int,
-        val ban: Int,
-        val baoyueVersion: Int,
-        val donateVersion: Int,
-        val vipType: Int,
-        val viptypeVersion: Long,
-        val anonimousUser: Boolean
+        val id: Int = 0,
+        val userName: String = "",
+        val type: Int = 0,
+        val status: Int = 0,
+        val whitelistAuthority: Int = 0,
+        val createTime: Long = 0,
+        val salt: String = "",
+        val tokenVersion: Int = 0,
+        val ban: Int = 0,
+        val baoyueVersion: Int = 0,
+        val donateVersion: Int = 0,
+        val vipType: Int = 0,
+        val viptypeVersion: Long = 0,
+        val anonimousUser: Boolean = false
 )

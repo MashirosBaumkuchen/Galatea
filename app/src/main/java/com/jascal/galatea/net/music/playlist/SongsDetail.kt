@@ -11,9 +11,9 @@ import com.jascal.galatea.net.music.Bean
 
 
 data class SongsDetail(
-        val songs: List<Song>,
-        val privileges: List<Privilege>,
-        val code: Int
+        val songs: List<Song> = ArrayList(),
+        val privileges: List<Privilege> = ArrayList(),
+        val code: Int= 0
 ) : Bean()
 
 data class Song(

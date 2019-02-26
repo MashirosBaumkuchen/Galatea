@@ -56,7 +56,7 @@ class MusicModel @Inject constructor() {
             }
         }
 
-        CacheProxy.getInstance().load(key, PlaylistDetailResponse::class.java, networkCache)
+        CacheProxy.getInstance().load(key, PlaylistDetailResponse::class.java, networkCache, tag="playlistDetail")
                 .subscribe(object : Observer<PlaylistDetailResponse> {
                     override fun onComplete() {
                     }
@@ -86,7 +86,7 @@ class MusicModel @Inject constructor() {
             }
         }
 
-        CacheProxy.getInstance().load(key, SongsDetail::class.java, networkCache)
+        CacheProxy.getInstance().load(key, SongsDetail::class.java, networkCache, tag="songsDetail")
                 .subscribe(object : Observer<SongsDetail> {
                     override fun onComplete() {
                     }

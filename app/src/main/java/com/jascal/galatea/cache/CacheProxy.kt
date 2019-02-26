@@ -43,35 +43,51 @@ class CacheProxy {
         }
     }
 
-    fun <T : Bean> load(key: String, clazz: Class<T>, networkCache: NetworkCache<T>): Observable<T> {
-        Log.d("cacheProxy", "load start")
+    fun <T : Bean> load(key: String, clazz: Class<T>, networkCache: NetworkCache<T>, tag:String = "cache"): Observable<T> {
+        Log.d("cacheProxy", "$tag :cache load start")
         return Observable.concat(
-                loadFromMemory(key, clazz),
-                loadFromDisk(key, clazz),
-                loadFromNetwork(key, clazz, networkCache))
+                loadFromMemory(key, clazz, tag),
+                loadFromDisk(key, clazz, tag),
+                loadFromNetwork(key, clazz, networkCache, tag))
+                .first(clazz.newInstance()).toObservable()
     }
 
-    private fun <T : Bean> loadFromMemory(key: String, clazz: Class<T>): Observable<T> {
+    private fun <T : Bean> loadFromMemory(key: String, clazz: Class<T>, tag:String): Observable<T> {
         return memoryCache.get(key, clazz)
                 .doOnNext {
-                    Log.d("cacheProxy", "memory load")
+                }
+                .doOnError {
+                    Log.d("cacheProxy", "$tag :cache from memory read error, maybe there is no cache in memory")
+                }
+                .doOnComplete {
+                    Log.d("cacheProxy", "$tag :cache loaded from memory!")
                 }
     }
 
-    private fun <T : Bean> loadFromDisk(key: String, clazz: Class<T>): Observable<T> {
+    private fun <T : Bean> loadFromDisk(key: String, clazz: Class<T>, tag:String): Observable<T> {
         return diskCache.get(key, clazz)
                 .doOnNext {
-                    Log.d("cacheProxy", "disk load")
                     memoryCache.put(key, it)
+                }
+                .doOnError {
+                    Log.d("cacheProxy", "$tag :cache from disk read error, maybe there is no cache in disk")
+                }
+                .doOnComplete {
+                    Log.d("cacheProxy", "$tag :cache loaded from disk!")
                 }
     }
 
-    private fun <T : Bean> loadFromNetwork(key: String, cls: Class<T>, networkCache: NetworkCache<T>): Observable<T> {
+    private fun <T : Bean> loadFromNetwork(key: String, cls: Class<T>, networkCache: NetworkCache<T>, tag:String): Observable<T> {
         return networkCache.get(key, cls)
                 .doOnNext { t ->
-                    Log.d("cacheProxy", "net load")
                     diskCache.put(key, t)
                     memoryCache.put(key, t)
+                }
+                .doOnError {
+                    Log.d("cacheProxy", "$tag :cache from net read error, maybe there is no cache in net")
+                }
+                .doOnComplete {
+                    Log.d("cacheProxy", "$tag :cache loaded from net!")
                 }
     }
 }
