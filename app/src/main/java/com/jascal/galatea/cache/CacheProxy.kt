@@ -53,7 +53,8 @@ class CacheProxy {
     }
 
     private fun <T : Bean> loadFromMemory(key: String, clazz: Class<T>, tag:String): Observable<T> {
-        return memoryCache.get(key, clazz)
+        return memoryCache
+                .get(key, clazz)
                 .doOnNext {
                 }
                 .doOnError {
@@ -65,7 +66,8 @@ class CacheProxy {
     }
 
     private fun <T : Bean> loadFromDisk(key: String, clazz: Class<T>, tag:String): Observable<T> {
-        return diskCache.get(key, clazz)
+        return diskCache
+                .get(key, clazz)
                 .doOnNext {
                     memoryCache.put(key, it)
                 }
@@ -78,13 +80,14 @@ class CacheProxy {
     }
 
     private fun <T : Bean> loadFromNetwork(key: String, cls: Class<T>, networkCache: NetworkCache<T>, tag:String): Observable<T> {
-        return networkCache.get(key, cls)
+        return networkCache
+                .get(key, cls)
                 .doOnNext { t ->
                     diskCache.put(key, t)
                     memoryCache.put(key, t)
                 }
                 .doOnError {
-                    Log.d("cacheProxy", "$tag :cache from net read error, maybe there is no cache in net")
+                    Log.d("cacheProxy", "$tag :cache from net read error, network error")
                 }
                 .doOnComplete {
                     Log.d("cacheProxy", "$tag :cache loaded from net!")

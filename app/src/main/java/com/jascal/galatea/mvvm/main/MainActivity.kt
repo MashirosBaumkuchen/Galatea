@@ -32,6 +32,14 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         fragments.add(profileFragment)
 
         viewPage.adapter = ViewPagerAdapter(fragments, supportFragmentManager)
+
+//        bottom_navigation
+//                .animate()
+//                .translationX(150)
+//                .translationY(200)
+//                .setDuration(200)
+//                .start()
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
