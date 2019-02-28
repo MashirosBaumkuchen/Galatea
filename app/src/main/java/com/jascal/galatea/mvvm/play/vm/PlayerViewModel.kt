@@ -1,6 +1,7 @@
 package com.jascal.galatea.mvvm.play.vm
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.jascal.galatea.mvvm.play.d.DaggerPlayerVMComponent
 import com.jascal.galatea.net.music.playlist.SongsDetail

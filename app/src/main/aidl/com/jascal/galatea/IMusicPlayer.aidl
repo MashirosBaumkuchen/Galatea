@@ -12,4 +12,8 @@ interface IMusicPlayer {
     int getCurrentPosition();
 
     void seekTo(in int position);
+
+    void pause();
+
+    void resume();
 }
