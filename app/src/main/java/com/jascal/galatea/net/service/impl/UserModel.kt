@@ -44,12 +44,12 @@ class UserModel @Inject constructor() {
         userService = retrofit.create(UserService::class.java)
     }
 
-    fun login(): LiveData<LoginResponse> {
-        val key = CacheProxy.generatorKey("18810659693", Config.ACTION_LOGIN)
+    fun login(cellphone: String = "18810659693", password: String = "blackcherry"): LiveData<LoginResponse> {
+        val key = CacheProxy.generatorKey(cellphone, Config.ACTION_LOGIN)
         val data: MutableLiveData<LoginResponse> = MutableLiveData()
         val networkCache = object : NetworkCache<LoginResponse>() {
             override fun get(key: String, clazz: Class<LoginResponse>): Observable<LoginResponse> {
-                return userService.login("18810659693", "blackcherry")
+                return userService.login(cellphone, password)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
             }
@@ -58,17 +58,17 @@ class UserModel @Inject constructor() {
                 .load(key, LoginResponse::class.java, networkCache, tag = "login")
                 .subscribe(object : Observer<LoginResponse> {
                     override fun onError(e: Throwable) {
-                        Log.d("cacheProxy", "error")
-                        Log.d("cacheProxy", "because ${e.message}")
+                        Log.d("login", "error")
+                        Log.d("login", "because ${e.message}")
                     }
 
                     override fun onNext(t: LoginResponse) {
                         data.value = t
-                        Log.d("cacheProxy", "onNext")
+                        Log.d("login", "onNext")
                     }
 
                     override fun onComplete() {
-                        Log.d("cacheProxy", "onCompleted")
+                        Log.d("login", "onCompleted")
                     }
 
                     override fun onSubscribe(d: Disposable) {
@@ -89,7 +89,7 @@ class UserModel @Inject constructor() {
             }
         }
         CacheProxy.getInstance()
-                .load(key, UserPlaylistResponse::class.java, networkCache, tag="usersPlaylist")
+                .load(key, UserPlaylistResponse::class.java, networkCache, tag = "usersPlaylist")
                 .subscribe(object : Observer<UserPlaylistResponse> {
                     override fun onComplete() {
                         Log.d("getUserPlaylist", "onCompleted")

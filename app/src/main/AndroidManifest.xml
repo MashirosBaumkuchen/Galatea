@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name=".mvvm.main.MainActivity" />
+        <activity android:name=".mvvm.login.LoginActivity" />
         <activity android:name=".mvvm.detail.PlaylistDetailActivity" />
         <activity
             android:name=".mvvm.play.PlayerActivity"

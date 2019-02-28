@@ -57,7 +57,7 @@ class RecommendModel @Inject constructor() {
         CacheProxy.getInstance().load(key, RecommendResponse::class.java, networkCache, tag="discovery")
                 .subscribe(object : Observer<RecommendResponse> {
                     override fun onComplete() {
-                        Log.d("recommend", "complete")
+                        Log.d("cacheProxy", "get recommend complete")
                     }
 
                     override fun onSubscribe(d: Disposable) {
@@ -68,7 +68,7 @@ class RecommendModel @Inject constructor() {
                     }
 
                     override fun onError(e: Throwable) {
-                        Log.d("recommend", "error")
+                        Log.d("cacheProxy", "get recommend error, ${e.message}")
                     }
                 })
 
