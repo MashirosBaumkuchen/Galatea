@@ -101,7 +101,6 @@ class PlayerActivity : BaseActivity() {
     private val conn = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {
             musicPlayer = IMusicPlayer.Stub.asInterface(iBinder)
-            Toast.makeText(this@PlayerActivity, "ready", Toast.LENGTH_SHORT).show()
             Log.d("aidl-galatea", "in playerActivity, and process is ${android.os.Process.myPid()}")
             musicPlayer.play("https://music.163.com/song/media/outer/url?id=$songID.mp3")
         }

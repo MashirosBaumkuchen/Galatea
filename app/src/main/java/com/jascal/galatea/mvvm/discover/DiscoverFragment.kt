@@ -60,7 +60,6 @@ class DiscoverFragment : BaseFragment(), RecommendAdapter.OnRankItemClickListene
         Log.d("turnFunction", "Click")
         val id: Long = view.tag as Long
         // open rankDetail page by type
-        Toast.makeText(context, "id is $id", Toast.LENGTH_SHORT).show()
         val intent: Intent = Intent()
         intent.setClass(context, PlaylistDetailActivity::class.java)
         intent.putExtra("playlistID", id)
