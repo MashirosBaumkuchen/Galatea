@@ -5,7 +5,7 @@ import android.content.Intent
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseActivity
 import com.jascal.galatea.ext.log
-import com.jascal.galatea.mvvm.login.LoginActivity
+import com.jascal.galatea.mvvm.main.MainActivity
 import com.jascal.galatea.remote.Config
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -54,7 +54,7 @@ class SplashActivity : BaseActivity() {
     }
 
     fun turn() {
-        val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         this.finish()
     }

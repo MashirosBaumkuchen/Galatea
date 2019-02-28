@@ -25,4 +25,9 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     fun login(cellphone: String = "18810659693", password: String = "blackcherry"): LiveData<LoginResponse> {
         return userModel.login(cellphone, password)
     }
+
+    fun isLogined(): Boolean {
+
+        return false
+    }
 }

@@ -1,14 +1,12 @@
 package com.jascal.galatea.mvvm.login
 
 import android.arch.lifecycle.Observer
-import android.content.Intent
 import android.text.TextUtils
 import android.util.Log
 import com.jascal.galatea.R
 import com.jascal.galatea.base.BaseActivity
 import com.jascal.galatea.mvvm.login.d.DaggerLoginComponent
 import com.jascal.galatea.mvvm.login.vm.LoginViewModel
-import com.jascal.galatea.mvvm.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -29,6 +27,7 @@ class LoginActivity : BaseActivity() {
 
     override fun initData() {
         DaggerLoginComponent.create().inject(this)
+
     }
 
     override fun initView() {
@@ -38,15 +37,15 @@ class LoginActivity : BaseActivity() {
                         .login(cellphone.text.toString(), password.text.toString())
                         .observe(this, Observer {
                             Log.d("login", it.toString())
-                            turn()
+                            if (it?.code == 200) {
+                                turn()
+                            }
                         })
             }
         }
     }
 
     fun turn() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
         this.finish()
     }
 
